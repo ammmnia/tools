@@ -15,10 +15,10 @@
 package datautil
 
 import (
+	"github.com/ammmnia/tools/db/pagination"
+	"github.com/ammmnia/tools/errs"
+	"github.com/ammmnia/tools/utils/jsonutil"
 	"github.com/jinzhu/copier"
-	"github.com/openimsdk/tools/db/pagination"
-	"github.com/openimsdk/tools/errs"
-	"github.com/openimsdk/tools/utils/jsonutil"
 	"math/rand"
 	"reflect"
 	"sort"

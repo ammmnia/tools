@@ -15,16 +15,16 @@
 package mw
 
 import (
+	"github.com/ammmnia/tools/log"
+	"github.com/ammmnia/tools/tokenverify"
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/openimsdk/tools/log"
-	"github.com/openimsdk/tools/tokenverify"
 	"net/http"
 	"strings"
 
+	"github.com/ammmnia/tools/apiresp"
+	"github.com/ammmnia/tools/errs"
 	"github.com/gin-gonic/gin"
 	"github.com/openimsdk/protocol/constant"
-	"github.com/openimsdk/tools/apiresp"
-	"github.com/openimsdk/tools/errs"
 )
 
 // CorsHandler gin cross-domain configuration.

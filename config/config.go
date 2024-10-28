@@ -18,7 +18,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/openimsdk/tools/errs"
+	"github.com/ammmnia/tools/errs"
 	"gopkg.in/yaml.v2"
 )
 

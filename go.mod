@@ -1,4 +1,4 @@
-module github.com/openimsdk/tools
+module github.com/ammmnia/tools
 
 go 1.21
 

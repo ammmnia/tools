@@ -16,15 +16,15 @@ package a2r
 
 import (
 	"context"
-	"github.com/openimsdk/tools/checker"
+	"github.com/ammmnia/tools/checker"
 	"io"
 	"net/http"
 
+	"github.com/ammmnia/tools/apiresp"
+	"github.com/ammmnia/tools/errs"
+	"github.com/ammmnia/tools/utils/jsonutil"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"github.com/openimsdk/tools/apiresp"
-	"github.com/openimsdk/tools/errs"
-	"github.com/openimsdk/tools/utils/jsonutil"
 	"google.golang.org/grpc"
 )
 
