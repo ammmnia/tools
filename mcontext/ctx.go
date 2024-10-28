@@ -17,8 +17,8 @@ package mcontext
 import (
 	"context"
 
+	"github.com/ammmnia/protocol/constant"
 	"github.com/ammmnia/tools/errs"
-	"github.com/openimsdk/protocol/constant"
 )
 
 var mapper = []string{constant.OperationID, constant.OpUserID, constant.OpUserPlatform, constant.ConnID}

@@ -21,10 +21,10 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/ammmnia/protocol/constant"
 	"github.com/ammmnia/tools/apiresp"
 	"github.com/ammmnia/tools/errs"
 	"github.com/gin-gonic/gin"
-	"github.com/openimsdk/protocol/constant"
 )
 
 // CorsHandler gin cross-domain configuration.
