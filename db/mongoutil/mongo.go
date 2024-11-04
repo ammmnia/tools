@@ -60,7 +60,11 @@ func NewMongoDB(ctx context.Context, config *Config) (*Client, error) {
 	if err := config.ValidateAndSetDefaults(); err != nil {
 		return nil, err
 	}
-	opts := options.Client().ApplyURI(config.Uri).SetMaxPoolSize(uint64(config.MaxPoolSize))
+	credential := options.Credential{
+		Username: config.Username,
+		Password: config.Password,
+	}
+	opts := options.Client().ApplyURI(config.Uri).SetAuth(credential).SetMaxPoolSize(uint64(config.MaxPoolSize))
 	var (
 		cli *mongo.Client
 		err error
