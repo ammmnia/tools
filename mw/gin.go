@@ -15,16 +15,18 @@
 package mw
 
 import (
-	"github.com/ammmnia/tools/log"
-	"github.com/ammmnia/tools/tokenverify"
-	"github.com/golang-jwt/jwt/v4"
+	"errors"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/ammmnia/protocol/constant"
 	"github.com/ammmnia/tools/apiresp"
 	"github.com/ammmnia/tools/errs"
+	"github.com/ammmnia/tools/log"
+	"github.com/ammmnia/tools/tokenverify"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 // CorsHandler gin cross-domain configuration.
@@ -116,4 +118,24 @@ func CreateToken(userID string, accessSecret string, accessExpire int64, platfor
 		return "", errs.WrapMsg(err, "token.SignedString")
 	}
 	return tokenString, nil
+}
+
+// Logger instance a Logger middleware with config.
+func Logger() gin.HandlerFunc {
+
+	return func(c *gin.Context) {
+		// Start timer
+		start := time.Now()
+		path := c.Request.URL.Path
+		//raw := c.Request.URL.RawQuery
+
+		// Process request
+		c.Next()
+		if c.Writer.Status() == http.StatusOK {
+			log.ZInfo(c, path, "ClientIP", c.ClientIP(), "Method", c.Request.Method, "StatusCode", c.Writer.Status(), "Latency", time.Since(start))
+		} else {
+			log.ZError(c, path, errors.New(c.Errors.ByType(gin.ErrorTypePrivate).String()), "ClientIP", c.ClientIP(), "Method", c.Request.Method, "StatusCode", c.Writer.Status(), "Latency", time.Since(start))
+		}
+
+	}
 }
