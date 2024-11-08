@@ -19,10 +19,9 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/ammmnia/tools/checker"
-
 	"github.com/ammmnia/protocol/constant"
 	"github.com/ammmnia/protocol/errinfo"
+	"github.com/ammmnia/tools/checker"
 	"github.com/ammmnia/tools/errs"
 	"github.com/ammmnia/tools/log"
 	"github.com/ammmnia/tools/mw/specialerror"
@@ -44,6 +43,7 @@ func RpcServerInterceptor(ctx context.Context, req any, info *grpc.UnaryServerIn
 	}
 	log.ZInfo(ctx, fmt.Sprintf("RPC Server Request - %s", extractFunctionName(funcName)), "funcName", funcName, "req", req)
 	if err := checker.Validate(req); err != nil {
+		log.ZError(ctx, "checker failed", err, "funcName", funcName, "req", req)
 		return nil, err
 	}
 

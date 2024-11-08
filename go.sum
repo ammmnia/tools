@@ -5,8 +5,8 @@ github.com/alcortesm/tgz v0.0.0-20161220082320-9c5fe88206d7 h1:uSoVVbwJiQipAclBb
 github.com/alcortesm/tgz v0.0.0-20161220082320-9c5fe88206d7/go.mod h1:6zEj6s6u/ghQa61ZWa/C2Aw3RkjiTBOix7dkqa1VLIs=
 github.com/aliyun/aliyun-oss-go-sdk v3.0.2+incompatible h1:8psS8a+wKfiLt1iVDX79F7Y6wUM49Lcha2FMXt4UM8g=
 github.com/aliyun/aliyun-oss-go-sdk v3.0.2+incompatible/go.mod h1:T/Aws4fEfogEE9v+HPhhw+CntffsBHJ8nXQCwKr0/g8=
-github.com/ammmnia/protocol v0.0.0-20241028074536-76b7db7a489c h1:Zwx8Y4ukSYi2WSkmisU9qSbRLxmOE6Dqt8q1nE0koG0=
-github.com/ammmnia/protocol v0.0.0-20241028074536-76b7db7a489c/go.mod h1:0fYDv/qOxiigqFEhAZ7OHiPCI2EivmXB1/SDrBH/CN0=
+github.com/ammmnia/protocol v0.0.0-20241108105936-4a2a3400c6c1 h1:nwzbwqaqgKNx5MGUVQbmoF1iABYy/FiOGgaIj5hP1EQ=
+github.com/ammmnia/protocol v0.0.0-20241108105936-4a2a3400c6c1/go.mod h1:0fYDv/qOxiigqFEhAZ7OHiPCI2EivmXB1/SDrBH/CN0=
 github.com/anmitsu/go-shlex v0.0.0-20161002113705-648efa622239 h1:kFOfPq6dUM1hTo4JG6LR5AXSUEsOjtdm0kw0FtQtMJA=
 github.com/anmitsu/go-shlex v0.0.0-20161002113705-648efa622239/go.mod h1:2FmKhYUyUczH0OGQWaF5ceTx0UBShxjsH6f8oGKYe2c=
 github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5 h1:0CwZNZbxp69SHPdPJAN/hZIm0C4OItdklCFmMRWYpio=
