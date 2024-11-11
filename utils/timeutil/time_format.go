@@ -22,8 +22,10 @@ import (
 )
 
 const (
-	TimeOffset = 8 * 3600  //8 hour offset
-	HalfOffset = 12 * 3600 //Half-day hourly offset
+	TimeOffset          = 8 * 3600  //8 hour offset
+	HalfOffset          = 12 * 3600 //Half-day hourly offset
+	YYYY_MM_DD_HH_MM_SS = "2006-01-02 15:04:05"
+	YYYY_MM_DD          = "2006-01-02"
 )
 
 // Get the current timestamp by Second
@@ -58,8 +60,8 @@ func GetCurrentTimestampByMill() int64 {
 
 // Get the timestamp at 0 o'clock of the day
 func GetCurDayZeroTimestamp() int64 {
-	timeStr := time.Now().Format("2006-01-02")
-	t, _ := time.Parse("2006-01-02", timeStr)
+	timeStr := time.Now().Format(YYYY_MM_DD)
+	t, _ := time.Parse(YYYY_MM_DD, timeStr)
 	return t.Unix() - TimeOffset
 }
 
@@ -71,19 +73,18 @@ func GetCurDayHalfTimestamp() int64 {
 
 // Get the formatted time at 0 o'clock of the day, the format is "2006-01-02_00-00-00"
 func GetCurDayZeroTimeFormat() string {
-	return time.Unix(GetCurDayZeroTimestamp(), 0).Format("2006-01-02_15-04-05")
+	return time.Unix(GetCurDayZeroTimestamp(), 0).Format(YYYY_MM_DD_HH_MM_SS)
 }
 
 // Get the formatted time at 12 o'clock of the day, the format is "2006-01-02_12-00-00"
 func GetCurDayHalfTimeFormat() string {
-	return time.Unix(GetCurDayZeroTimestamp()+HalfOffset, 0).Format("2006-01-02_15-04-05")
+	return time.Unix(GetCurDayZeroTimestamp()+HalfOffset, 0).Format(YYYY_MM_DD_HH_MM_SS)
 }
 
 // GetTimeStampByFormat convert string to unix timestamp
 func GetTimeStampByFormat(datetime string) string {
-	timeLayout := "2006-01-02 15:04:05"
 	loc, _ := time.LoadLocation("Local")
-	tmp, _ := time.ParseInLocation(timeLayout, datetime, loc)
+	tmp, _ := time.ParseInLocation(YYYY_MM_DD_HH_MM_SS, datetime, loc)
 	timestamp := tmp.Unix()
 	return strconv.FormatInt(timestamp, 10)
 }
@@ -94,19 +95,32 @@ func TimeStringFormatTimeUnix(timeFormat string, timeSrc string) int64 {
 	return tm.Unix()
 }
 
+// TimeStringFormatTimeUnix convert string to unix timestamp
+func TimeStringCompare(firstTime string, secondTime string) int8 {
+	ft := TimeStringFormatTimeUnix(YYYY_MM_DD_HH_MM_SS, firstTime)
+	st := TimeStringFormatTimeUnix(YYYY_MM_DD_HH_MM_SS, secondTime)
+	if ft > st {
+		return 1
+	} else if ft == st {
+		return 0
+	} else {
+		return -1
+	}
+}
+
 // TimeStringToTime convert string to time.Time
 func TimeStringToTime(timeString string) (time.Time, error) {
-	t, err := time.Parse("2006-01-02", timeString)
+	t, err := time.Parse(YYYY_MM_DD, timeString)
 	return t, errs.WrapMsg(err, "timeStringToTime failed", "timeString", timeString)
 }
 
 // TimeToString convert time.Time to string
 func TimeToString(t time.Time) string {
-	return t.Format("2006-01-02")
+	return t.Format(YYYY_MM_DD)
 }
 
 func GetCurrentTimeFormatted() string {
-	return time.Now().Format("2006-01-02 15:04:05")
+	return time.Now().Format(YYYY_MM_DD_HH_MM_SS)
 }
 
 // GetTimestampByTimezone get specific timestamp by timezone
