@@ -20,8 +20,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ammmnia/protocol/constant"
 	"github.com/ammmnia/tools/apiresp"
+	"github.com/ammmnia/tools/constant"
 	"github.com/ammmnia/tools/errs"
 	"github.com/ammmnia/tools/log"
 	"github.com/ammmnia/tools/tokenverify"

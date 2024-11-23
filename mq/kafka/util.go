@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/IBM/sarama"
-	"github.com/ammmnia/protocol/constant"
+	"github.com/ammmnia/tools/constant"
 	"github.com/ammmnia/tools/mcontext"
 )
 

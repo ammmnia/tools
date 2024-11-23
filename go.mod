@@ -7,7 +7,6 @@ toolchain go1.21.8
 require (
 	github.com/IBM/sarama v1.43.0
 	github.com/aliyun/aliyun-oss-go-sdk v3.0.2+incompatible
-	github.com/ammmnia/protocol v0.0.0-20241108105936-4a2a3400c6c1
 	github.com/aws/aws-sdk-go-v2 v1.23.1
 	github.com/aws/aws-sdk-go-v2/config v1.25.4
 	github.com/aws/aws-sdk-go-v2/credentials v1.16.3

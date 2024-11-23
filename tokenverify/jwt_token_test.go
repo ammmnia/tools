@@ -17,7 +17,7 @@ package tokenverify
 import (
 	"testing"
 
-	"github.com/ammmnia/protocol/constant"
+	"github.com/ammmnia/tools/constant"
 	"github.com/golang-jwt/jwt/v4"
 )
 

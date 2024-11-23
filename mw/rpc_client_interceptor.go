@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ammmnia/protocol/constant"
-	"github.com/ammmnia/protocol/errinfo"
+	"github.com/ammmnia/tools/constant"
+	"github.com/ammmnia/tools/errinfo"
 	"github.com/ammmnia/tools/errs"
 	"github.com/ammmnia/tools/log"
 	"google.golang.org/grpc"

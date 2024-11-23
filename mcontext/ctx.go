@@ -17,7 +17,7 @@ package mcontext
 import (
 	"context"
 
-	"github.com/ammmnia/protocol/constant"
+	"github.com/ammmnia/tools/constant"
 	"github.com/ammmnia/tools/errs"
 )
 
