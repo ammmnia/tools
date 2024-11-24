@@ -22,12 +22,14 @@ import (
 	"github.com/ammmnia/tools/utils/jsonutil"
 )
 
-type ApiResponse struct {
+type ApiResponseT[T any] struct {
 	ErrCode int    `json:"errCode"`
 	ErrMsg  string `json:"errMsg"`
 	ErrDlt  string `json:"errDlt"`
-	Data    any    `json:"data,omitempty"`
+	Data    T      `json:"data,omitempty"`
 }
+
+type ApiResponse ApiResponseT[any]
 
 func (r *ApiResponse) MarshalJSON() ([]byte, error) {
 	type apiResponse ApiResponse

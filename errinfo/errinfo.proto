@@ -16,7 +16,7 @@ syntax = "proto3";
 
 package openim.protobuf;
 
-option go_package = "github.com/ammmnia/protocol/errinfo";
+option go_package = "github.com/ammmnia/tools/errinfo";
 
 message ErrorInfo {
   string path = 1;
