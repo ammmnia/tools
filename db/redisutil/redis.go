@@ -21,6 +21,8 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
+const Nil = redis.Nil
+
 // Config defines the configuration parameters for a Redis client, including
 // options for both single-node and cluster mode connections.
 type Config struct {
