@@ -10,7 +10,8 @@ import (
 
 func TestNewAWS(t *testing.T) {
 	ss, err := NewAWS(Config{
-		Bucket:          "ap-northeast-2",
+		Region:          "ap-northeast-2",
+		Bucket:          "flyim",
 		BucketURL:       "https://flyim.s3.ap-northeast-2.amazonaws.com",
 		AccessKeyID:     "AKIAW3MEABHC2EOP5RD2",
 		AccessKeySecret: "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",
@@ -30,4 +31,5 @@ func TestNewAWS(t *testing.T) {
 		t.Fatal(err)
 	}
 	assert.Equal(t, "README.md", object.Key)
+	t.Logf(" %v", object)
 }

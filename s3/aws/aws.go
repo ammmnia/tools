@@ -48,7 +48,7 @@ const successCode = http.StatusOK
 var _ s3.Interface = (*AWS)(nil)
 
 type Config struct {
-	Endpoint        string
+	Region          string
 	Bucket          string
 	BucketURL       string
 	AccessKeyID     string
@@ -60,8 +60,7 @@ type AWS struct {
 	accessKey     string
 	secretKey     string
 	region        string
-	token         string
-	endpoint      string
+	bucket        string
 	bucketURL     string
 	client        *awss3.Client
 	presignClient *awss3.PresignClient
@@ -70,7 +69,7 @@ type AWS struct {
 func NewAWS(conf Config) (*AWS, error) {
 	// 创建一个新的 S3 客户端
 	cfg, err := awss3config.LoadDefaultConfig(context.TODO(),
-		awss3config.WithRegion(conf.Bucket),
+		awss3config.WithRegion(conf.Region),
 		awss3config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(
 			conf.AccessKeyID,
 			conf.AccessKeySecret,
@@ -86,6 +85,7 @@ func NewAWS(conf Config) (*AWS, error) {
 		accessKey:     conf.AccessKeyID,
 		secretKey:     conf.AccessKeySecret,
 		region:        conf.Bucket,
+		bucket:        conf.Bucket,
 		bucketURL:     conf.BucketURL,
 		client:        client,
 		presignClient: presignClient,
@@ -106,7 +106,7 @@ func (k AWS) PartLimit() *s3.PartLimit {
 
 func (k AWS) InitiateMultipartUpload(ctx context.Context, name string) (*s3.InitiateMultipartUploadResult, error) {
 	result, err := k.client.CreateMultipartUpload(ctx, &awss3.CreateMultipartUploadInput{
-		Bucket: aws.String("flyim"),
+		Bucket: aws.String(k.bucket),
 		Key:    aws.String(name),
 	})
 	if err != nil {
