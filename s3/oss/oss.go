@@ -30,10 +30,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ammmnia/tools/s3"
-
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"github.com/ammmnia/tools/errs"
+	"github.com/ammmnia/tools/s3"
 )
 
 const (

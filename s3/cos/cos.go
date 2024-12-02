@@ -29,10 +29,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/ammmnia/tools/errs"
 	"github.com/ammmnia/tools/s3"
 	"github.com/tencentyun/cos-go-sdk-v5"
-
-	"github.com/ammmnia/tools/errs"
 )
 
 const (
