@@ -54,19 +54,18 @@ type Config struct {
 	AccessKeyID     string
 	AccessKeySecret string
 	SessionToken    string
-	PublicRead      bool
 }
 
 type Kodo struct {
-	AccessKey     string
-	SecretKey     string
-	Region        string
-	Token         string
-	Endpoint      string
-	BucketURL     string
-	Auth          *auth.Credentials
-	Client        *awss3.Client
-	PresignClient *awss3.PresignClient
+	accessKey     string
+	secretKey     string
+	region        string
+	token         string
+	endpoint      string
+	bucketURL     string
+	auth          *auth.Credentials
+	client        *awss3.Client
+	presignClient *awss3.PresignClient
 }
 
 func NewKodo(conf Config) (*Kodo, error) {
@@ -90,13 +89,13 @@ func NewKodo(conf Config) (*Kodo, error) {
 	presignClient := awss3.NewPresignClient(client)
 
 	return &Kodo{
-		AccessKey:     conf.AccessKeyID,
-		SecretKey:     conf.AccessKeySecret,
-		Region:        conf.Bucket,
-		BucketURL:     conf.BucketURL,
-		Auth:          auth.New(conf.AccessKeyID, conf.AccessKeySecret),
-		Client:        client,
-		PresignClient: presignClient,
+		accessKey:     conf.AccessKeyID,
+		secretKey:     conf.AccessKeySecret,
+		region:        conf.Bucket,
+		bucketURL:     conf.BucketURL,
+		auth:          auth.New(conf.AccessKeyID, conf.AccessKeySecret),
+		client:        client,
+		presignClient: presignClient,
 	}, nil
 }
 
@@ -113,8 +112,8 @@ func (k Kodo) PartLimit() *s3.PartLimit {
 }
 
 func (k Kodo) InitiateMultipartUpload(ctx context.Context, name string) (*s3.InitiateMultipartUploadResult, error) {
-	result, err := k.Client.CreateMultipartUpload(ctx, &awss3.CreateMultipartUploadInput{
-		Bucket: aws.String(k.Region),
+	result, err := k.client.CreateMultipartUpload(ctx, &awss3.CreateMultipartUploadInput{
+		Bucket: aws.String(k.region),
 		Key:    aws.String(name),
 	})
 	if err != nil {
@@ -135,8 +134,8 @@ func (k Kodo) CompleteMultipartUpload(ctx context.Context, uploadID string, name
 			ETag:       aws.String(part.ETag),
 		}
 	}
-	result, err := k.Client.CompleteMultipartUpload(ctx, &awss3.CompleteMultipartUploadInput{
-		Bucket:          aws.String(k.Region),
+	result, err := k.client.CompleteMultipartUpload(ctx, &awss3.CompleteMultipartUploadInput{
+		Bucket:          aws.String(k.region),
 		Key:             aws.String(name),
 		UploadId:        aws.String(uploadID),
 		MultipartUpload: &awss3types.CompletedMultipartUpload{Parts: kodoParts},
@@ -171,14 +170,14 @@ func (k Kodo) PartSize(ctx context.Context, size int64) (int64, error) {
 
 func (k Kodo) AuthSign(ctx context.Context, uploadID string, name string, expire time.Duration, partNumbers []int) (*s3.AuthSignResult, error) {
 	result := s3.AuthSignResult{
-		URL:    k.BucketURL + "/" + name,
+		URL:    k.bucketURL + "/" + name,
 		Query:  url.Values{"uploadId": {uploadID}},
 		Header: make(http.Header),
 		Parts:  make([]s3.SignPart, len(partNumbers)),
 	}
 	for i, partNumber := range partNumbers {
-		part, _ := k.PresignClient.PresignUploadPart(ctx, &awss3.UploadPartInput{
-			Bucket:     aws.String(k.Region),
+		part, _ := k.presignClient.PresignUploadPart(ctx, &awss3.UploadPartInput{
+			Bucket:     aws.String(k.region),
 			UploadId:   aws.String(uploadID),
 			Key:        aws.String(name),
 			PartNumber: aws.Int32(int32(partNumber)),
@@ -194,8 +193,8 @@ func (k Kodo) AuthSign(ctx context.Context, uploadID string, name string, expire
 }
 
 func (k Kodo) PresignedPutObject(ctx context.Context, name string, expire time.Duration) (string, error) {
-	object, err := k.PresignClient.PresignPutObject(ctx, &awss3.PutObjectInput{
-		Bucket: aws.String(k.Region),
+	object, err := k.presignClient.PresignPutObject(ctx, &awss3.PutObjectInput{
+		Bucket: aws.String(k.region),
 		Key:    aws.String(name),
 	}, func(po *awss3.PresignOptions) {
 		po.Expires = expire
@@ -205,17 +204,17 @@ func (k Kodo) PresignedPutObject(ctx context.Context, name string, expire time.D
 }
 
 func (k Kodo) DeleteObject(ctx context.Context, name string) error {
-	_, err := k.Client.DeleteObject(ctx, &awss3.DeleteObjectInput{
-		Bucket: aws.String(k.Region),
+	_, err := k.client.DeleteObject(ctx, &awss3.DeleteObjectInput{
+		Bucket: aws.String(k.region),
 		Key:    aws.String(name),
 	})
 	return err
 }
 
 func (k Kodo) CopyObject(ctx context.Context, src string, dst string) (*s3.CopyObjectInfo, error) {
-	result, err := k.Client.CopyObject(ctx, &awss3.CopyObjectInput{
-		Bucket:     aws.String(k.Region),
-		CopySource: aws.String(k.Region + "/" + src),
+	result, err := k.client.CopyObject(ctx, &awss3.CopyObjectInput{
+		Bucket:     aws.String(k.region),
+		CopySource: aws.String(k.region + "/" + src),
 		Key:        aws.String(dst),
 	})
 	if err != nil {
@@ -228,8 +227,8 @@ func (k Kodo) CopyObject(ctx context.Context, src string, dst string) (*s3.CopyO
 }
 
 func (k Kodo) StatObject(ctx context.Context, name string) (*s3.ObjectInfo, error) {
-	info, err := k.Client.HeadObject(ctx, &awss3.HeadObjectInput{
-		Bucket: aws.String(k.Region),
+	info, err := k.client.HeadObject(ctx, &awss3.HeadObjectInput{
+		Bucket: aws.String(k.region),
 		Key:    aws.String(name),
 	})
 	if err != nil {
@@ -252,19 +251,19 @@ func (k Kodo) IsNotFound(err error) bool {
 }
 
 func (k Kodo) AbortMultipartUpload(ctx context.Context, uploadID string, name string) error {
-	_, err := k.Client.AbortMultipartUpload(ctx, &awss3.AbortMultipartUploadInput{
+	_, err := k.client.AbortMultipartUpload(ctx, &awss3.AbortMultipartUploadInput{
 		UploadId: aws.String(uploadID),
-		Bucket:   aws.String(k.Region),
+		Bucket:   aws.String(k.region),
 		Key:      aws.String(name),
 	})
 	return err
 }
 
 func (k Kodo) ListUploadedParts(ctx context.Context, uploadID string, name string, partNumberMarker int, maxParts int) (*s3.ListUploadedPartsResult, error) {
-	result, err := k.Client.ListParts(ctx, &awss3.ListPartsInput{
+	result, err := k.client.ListParts(ctx, &awss3.ListPartsInput{
 		Key:              aws.String(name),
 		UploadId:         aws.String(uploadID),
-		Bucket:           aws.String(k.Region),
+		Bucket:           aws.String(k.region),
 		MaxParts:         aws.Int32(int32(maxParts)),
 		PartNumberMarker: aws.String(strconv.Itoa(partNumberMarker)),
 	})
@@ -296,8 +295,8 @@ func (k Kodo) ListUploadedParts(ctx context.Context, uploadID string, name strin
 
 func (k Kodo) AccessURL(ctx context.Context, name string, expire time.Duration, opt *s3.AccessURLOption) (string, error) {
 	//get object head
-	info, err := k.Client.HeadObject(ctx, &awss3.HeadObjectInput{
-		Bucket: aws.String(k.Region),
+	info, err := k.client.HeadObject(ctx, &awss3.HeadObjectInput{
+		Bucket: aws.String(k.region),
 		Key:    aws.String(name),
 	})
 	if err != nil {
@@ -332,12 +331,12 @@ func (k Kodo) AccessURL(ctx context.Context, name string, expire time.Duration, 
 	}
 	//expire
 	deadline := time.Now().Add(time.Second * expire).Unix()
-	domain := k.BucketURL
+	domain := k.bucketURL
 	query := url.Values{}
 	if opt != nil && opt.Filename != "" {
 		query.Add("attname", opt.Filename)
 	}
-	privateURL := storage.MakePrivateURLv2WithQuery(k.Auth, domain, name, query, deadline)
+	privateURL := storage.MakePrivateURLv2WithQuery(k.auth, domain, name, query, deadline)
 	if imageMogr != "" {
 		privateURL += "&" + imageMogr
 	}
@@ -346,9 +345,9 @@ func (k Kodo) AccessURL(ctx context.Context, name string, expire time.Duration, 
 
 func (k *Kodo) SetObjectContentType(ctx context.Context, name string, contentType string) error {
 	//set object content-type
-	_, err := k.Client.CopyObject(ctx, &awss3.CopyObjectInput{
-		Bucket:            aws.String(k.Region),
-		CopySource:        aws.String(k.Region + "/" + name),
+	_, err := k.client.CopyObject(ctx, &awss3.CopyObjectInput{
+		Bucket:            aws.String(k.region),
+		CopySource:        aws.String(k.region + "/" + name),
 		Key:               aws.String(name),
 		ContentType:       aws.String(contentType),
 		MetadataDirective: awss3types.MetadataDirectiveReplace,
@@ -359,7 +358,7 @@ func (k *Kodo) FormData(ctx context.Context, name string, size int64, contentTyp
 	// https://developer.qiniu.com/kodo/1312/upload
 	now := time.Now()
 	expiration := now.Add(duration)
-	resourceKey := k.Region + ":" + name
+	resourceKey := k.region + ":" + name
 	putPolicy := map[string]any{
 		"scope":    resourceKey,
 		"deadline": now.Unix() + 3600,
@@ -371,16 +370,16 @@ func (k *Kodo) FormData(ctx context.Context, name string, size int64, contentTyp
 	}
 	encodedPutPolicy := base64.StdEncoding.EncodeToString(putPolicyJson)
 	sign := encodedPutPolicy
-	h := hmac.New(sha1.New, []byte(k.SecretKey))
+	h := hmac.New(sha1.New, []byte(k.secretKey))
 	if _, err := io.WriteString(h, sign); err != nil {
 		return nil, errs.WrapMsg(err, "WriteString error")
 	}
 
 	encodedSign := base64.StdEncoding.EncodeToString([]byte(sign))
-	uploadToken := k.AccessKey + ":" + encodedSign + ":" + encodedPutPolicy
+	uploadToken := k.accessKey + ":" + encodedSign + ":" + encodedPutPolicy
 
 	fd := &s3.FormData{
-		URL:     k.BucketURL,
+		URL:     k.bucketURL,
 		File:    "file",
 		Expires: expiration,
 		FormData: map[string]string{
