@@ -35,8 +35,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/credentials"
 	awss3 "github.com/aws/aws-sdk-go-v2/service/s3"
 	awss3types "github.com/aws/aws-sdk-go-v2/service/s3/types"
-	"github.com/qiniu/go-sdk/v7/auth"
-	"github.com/qiniu/go-sdk/v7/storage"
 )
 
 const (
@@ -47,6 +45,8 @@ const (
 
 const successCode = http.StatusOK
 
+var _ s3.Interface = (*AWS)(nil)
+
 type Config struct {
 	Endpoint        string
 	Bucket          string
@@ -54,29 +54,23 @@ type Config struct {
 	AccessKeyID     string
 	AccessKeySecret string
 	SessionToken    string
-	PublicRead      bool
 }
 
 type AWS struct {
-	AccessKey     string
-	SecretKey     string
-	Region        string
-	Token         string
-	Endpoint      string
-	BucketURL     string
-	Auth          *auth.Credentials
-	Client        *awss3.Client
-	PresignClient *awss3.PresignClient
+	accessKey     string
+	secretKey     string
+	region        string
+	token         string
+	endpoint      string
+	bucketURL     string
+	client        *awss3.Client
+	presignClient *awss3.PresignClient
 }
 
 func NewAWS(conf Config) (*AWS, error) {
-	//init client
+	// 创建一个新的 S3 客户端
 	cfg, err := awss3config.LoadDefaultConfig(context.TODO(),
 		awss3config.WithRegion(conf.Bucket),
-		awss3config.WithEndpointResolverWithOptions(
-			aws.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (aws.Endpoint, error) {
-				return aws.Endpoint{URL: conf.Endpoint}, nil
-			})),
 		awss3config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(
 			conf.AccessKeyID,
 			conf.AccessKeySecret,
@@ -84,18 +78,17 @@ func NewAWS(conf Config) (*AWS, error) {
 		),
 	)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	client := awss3.NewFromConfig(cfg)
 	presignClient := awss3.NewPresignClient(client)
 	return &AWS{
-		AccessKey:     conf.AccessKeyID,
-		SecretKey:     conf.AccessKeySecret,
-		Region:        conf.Bucket,
-		BucketURL:     conf.BucketURL,
-		Auth:          auth.New(conf.AccessKeyID, conf.AccessKeySecret),
-		Client:        client,
-		PresignClient: presignClient,
+		accessKey:     conf.AccessKeyID,
+		secretKey:     conf.AccessKeySecret,
+		region:        conf.Bucket,
+		bucketURL:     conf.BucketURL,
+		client:        client,
+		presignClient: presignClient,
 	}, nil
 }
 
@@ -112,8 +105,8 @@ func (k AWS) PartLimit() *s3.PartLimit {
 }
 
 func (k AWS) InitiateMultipartUpload(ctx context.Context, name string) (*s3.InitiateMultipartUploadResult, error) {
-	result, err := k.Client.CreateMultipartUpload(ctx, &awss3.CreateMultipartUploadInput{
-		Bucket: aws.String(k.Region),
+	result, err := k.client.CreateMultipartUpload(ctx, &awss3.CreateMultipartUploadInput{
+		Bucket: aws.String("flyim"),
 		Key:    aws.String(name),
 	})
 	if err != nil {
@@ -134,8 +127,8 @@ func (k AWS) CompleteMultipartUpload(ctx context.Context, uploadID string, name 
 			ETag:       aws.String(part.ETag),
 		}
 	}
-	result, err := k.Client.CompleteMultipartUpload(ctx, &awss3.CompleteMultipartUploadInput{
-		Bucket:          aws.String(k.Region),
+	result, err := k.client.CompleteMultipartUpload(ctx, &awss3.CompleteMultipartUploadInput{
+		Bucket:          aws.String(k.region),
 		Key:             aws.String(name),
 		UploadId:        aws.String(uploadID),
 		MultipartUpload: &awss3types.CompletedMultipartUpload{Parts: kodoParts},
@@ -170,14 +163,14 @@ func (k AWS) PartSize(ctx context.Context, size int64) (int64, error) {
 
 func (k AWS) AuthSign(ctx context.Context, uploadID string, name string, expire time.Duration, partNumbers []int) (*s3.AuthSignResult, error) {
 	result := s3.AuthSignResult{
-		URL:    k.BucketURL + "/" + name,
+		URL:    k.bucketURL + "/" + name,
 		Query:  url.Values{"uploadId": {uploadID}},
 		Header: make(http.Header),
 		Parts:  make([]s3.SignPart, len(partNumbers)),
 	}
 	for i, partNumber := range partNumbers {
-		part, _ := k.PresignClient.PresignUploadPart(ctx, &awss3.UploadPartInput{
-			Bucket:     aws.String(k.Region),
+		part, _ := k.presignClient.PresignUploadPart(ctx, &awss3.UploadPartInput{
+			Bucket:     aws.String(k.region),
 			UploadId:   aws.String(uploadID),
 			Key:        aws.String(name),
 			PartNumber: aws.Int32(int32(partNumber)),
@@ -193,8 +186,8 @@ func (k AWS) AuthSign(ctx context.Context, uploadID string, name string, expire 
 }
 
 func (k AWS) PresignedPutObject(ctx context.Context, name string, expire time.Duration) (string, error) {
-	object, err := k.PresignClient.PresignPutObject(ctx, &awss3.PutObjectInput{
-		Bucket: aws.String(k.Region),
+	object, err := k.presignClient.PresignPutObject(ctx, &awss3.PutObjectInput{
+		Bucket: aws.String(k.region),
 		Key:    aws.String(name),
 	}, func(po *awss3.PresignOptions) {
 		po.Expires = expire
@@ -204,17 +197,17 @@ func (k AWS) PresignedPutObject(ctx context.Context, name string, expire time.Du
 }
 
 func (k AWS) DeleteObject(ctx context.Context, name string) error {
-	_, err := k.Client.DeleteObject(ctx, &awss3.DeleteObjectInput{
-		Bucket: aws.String(k.Region),
+	_, err := k.client.DeleteObject(ctx, &awss3.DeleteObjectInput{
+		Bucket: aws.String(k.region),
 		Key:    aws.String(name),
 	})
 	return err
 }
 
 func (k AWS) CopyObject(ctx context.Context, src string, dst string) (*s3.CopyObjectInfo, error) {
-	result, err := k.Client.CopyObject(ctx, &awss3.CopyObjectInput{
-		Bucket:     aws.String(k.Region),
-		CopySource: aws.String(k.Region + "/" + src),
+	result, err := k.client.CopyObject(ctx, &awss3.CopyObjectInput{
+		Bucket:     aws.String(k.region),
+		CopySource: aws.String(k.region + "/" + src),
 		Key:        aws.String(dst),
 	})
 	if err != nil {
@@ -227,8 +220,8 @@ func (k AWS) CopyObject(ctx context.Context, src string, dst string) (*s3.CopyOb
 }
 
 func (k AWS) StatObject(ctx context.Context, name string) (*s3.ObjectInfo, error) {
-	info, err := k.Client.HeadObject(ctx, &awss3.HeadObjectInput{
-		Bucket: aws.String(k.Region),
+	info, err := k.client.HeadObject(ctx, &awss3.HeadObjectInput{
+		Bucket: aws.String(k.region),
 		Key:    aws.String(name),
 	})
 	if err != nil {
@@ -251,19 +244,19 @@ func (k AWS) IsNotFound(err error) bool {
 }
 
 func (k AWS) AbortMultipartUpload(ctx context.Context, uploadID string, name string) error {
-	_, err := k.Client.AbortMultipartUpload(ctx, &awss3.AbortMultipartUploadInput{
+	_, err := k.client.AbortMultipartUpload(ctx, &awss3.AbortMultipartUploadInput{
 		UploadId: aws.String(uploadID),
-		Bucket:   aws.String(k.Region),
+		Bucket:   aws.String(k.region),
 		Key:      aws.String(name),
 	})
 	return err
 }
 
 func (k AWS) ListUploadedParts(ctx context.Context, uploadID string, name string, partNumberMarker int, maxParts int) (*s3.ListUploadedPartsResult, error) {
-	result, err := k.Client.ListParts(ctx, &awss3.ListPartsInput{
+	result, err := k.client.ListParts(ctx, &awss3.ListPartsInput{
 		Key:              aws.String(name),
 		UploadId:         aws.String(uploadID),
-		Bucket:           aws.String(k.Region),
+		Bucket:           aws.String(k.region),
 		MaxParts:         aws.Int32(int32(maxParts)),
 		PartNumberMarker: aws.String(strconv.Itoa(partNumberMarker)),
 	})
@@ -295,59 +288,59 @@ func (k AWS) ListUploadedParts(ctx context.Context, uploadID string, name string
 
 func (k AWS) AccessURL(ctx context.Context, name string, expire time.Duration, opt *s3.AccessURLOption) (string, error) {
 	//get object head
-	info, err := k.Client.HeadObject(ctx, &awss3.HeadObjectInput{
-		Bucket: aws.String(k.Region),
-		Key:    aws.String(name),
-	})
-	if err != nil {
-		return "", errors.New("AccessURL object not found")
-	}
-	if opt != nil {
-		if opt.ContentType != aws.ToString(info.ContentType) {
-			err := k.SetObjectContentType(ctx, name, opt.ContentType)
-			if err != nil {
-				return "", errors.New("AccessURL setContentType error")
-			}
-		}
-	}
-	imageMogr := ""
-	//image dispose
-	if opt != nil {
-		if opt.Image != nil {
-			//https://developer.qiniu.com/dora/8255/the-zoom
-			process := ""
-			if opt.Image.Width > 0 {
-				process += strconv.Itoa(opt.Image.Width) + "x"
-			}
-			if opt.Image.Height > 0 {
-				if opt.Image.Width > 0 {
-					process += strconv.Itoa(opt.Image.Height)
-				} else {
-					process += "x" + strconv.Itoa(opt.Image.Height)
-				}
-			}
-			imageMogr = "imageMogr2/thumbnail/" + process
-		}
-	}
-	//expire
-	deadline := time.Now().Add(time.Second * expire).Unix()
-	domain := k.BucketURL
-	query := url.Values{}
-	if opt != nil && opt.Filename != "" {
-		query.Add("attname", opt.Filename)
-	}
-	privateURL := storage.MakePrivateURLv2WithQuery(k.Auth, domain, name, query, deadline)
-	if imageMogr != "" {
-		privateURL += "&" + imageMogr
-	}
-	return privateURL, nil
+	//info, err := k.client.HeadObject(ctx, &awss3.HeadObjectInput{
+	//	Bucket: aws.String(k.region),
+	//	Key:    aws.String(name),
+	//})
+	//if err != nil {
+	//	return "", errors.New("AccessURL object not found")
+	//}
+	//if opt != nil {
+	//	if opt.ContentType != aws.ToString(info.ContentType) {
+	//		err := k.SetObjectContentType(ctx, name, opt.ContentType)
+	//		if err != nil {
+	//			return "", errors.New("AccessURL setContentType error")
+	//		}
+	//	}
+	//}
+	//imageMogr := ""
+	////image dispose
+	//if opt != nil {
+	//	if opt.Image != nil {
+	//		//https://developer.qiniu.com/dora/8255/the-zoom
+	//		process := ""
+	//		if opt.Image.Width > 0 {
+	//			process += strconv.Itoa(opt.Image.Width) + "x"
+	//		}
+	//		if opt.Image.Height > 0 {
+	//			if opt.Image.Width > 0 {
+	//				process += strconv.Itoa(opt.Image.Height)
+	//			} else {
+	//				process += "x" + strconv.Itoa(opt.Image.Height)
+	//			}
+	//		}
+	//		imageMogr = "imageMogr2/thumbnail/" + process
+	//	}
+	//}
+	////expire
+	//deadline := time.Now().Add(time.Second * expire).Unix()
+	//domain := k.bucketURL
+	//query := url.Values{}
+	//if opt != nil && opt.Filename != "" {
+	//	query.Add("attname", opt.Filename)
+	//}
+	//privateURL := storage.MakePrivateURLv2WithQuery(k.auth, domain, name, query, deadline)
+	//if imageMogr != "" {
+	//	privateURL += "&" + imageMogr
+	//}
+	return "", nil
 }
 
 func (k *AWS) SetObjectContentType(ctx context.Context, name string, contentType string) error {
 	//set object content-type
-	_, err := k.Client.CopyObject(ctx, &awss3.CopyObjectInput{
-		Bucket:            aws.String(k.Region),
-		CopySource:        aws.String(k.Region + "/" + name),
+	_, err := k.client.CopyObject(ctx, &awss3.CopyObjectInput{
+		Bucket:            aws.String(k.region),
+		CopySource:        aws.String(k.region + "/" + name),
 		Key:               aws.String(name),
 		ContentType:       aws.String(contentType),
 		MetadataDirective: awss3types.MetadataDirectiveReplace,
@@ -358,7 +351,7 @@ func (k *AWS) FormData(ctx context.Context, name string, size int64, contentType
 	// https://developer.qiniu.com/kodo/1312/upload
 	now := time.Now()
 	expiration := now.Add(duration)
-	resourceKey := k.Region + ":" + name
+	resourceKey := k.region + ":" + name
 	putPolicy := map[string]any{
 		"scope":    resourceKey,
 		"deadline": now.Unix() + 3600,
@@ -370,16 +363,16 @@ func (k *AWS) FormData(ctx context.Context, name string, size int64, contentType
 	}
 	encodedPutPolicy := base64.StdEncoding.EncodeToString(putPolicyJson)
 	sign := encodedPutPolicy
-	h := hmac.New(sha1.New, []byte(k.SecretKey))
+	h := hmac.New(sha1.New, []byte(k.secretKey))
 	if _, err := io.WriteString(h, sign); err != nil {
 		return nil, errs.WrapMsg(err, "WriteString error")
 	}
 
 	encodedSign := base64.StdEncoding.EncodeToString([]byte(sign))
-	uploadToken := k.AccessKey + ":" + encodedSign + ":" + encodedPutPolicy
+	uploadToken := k.accessKey + ":" + encodedSign + ":" + encodedPutPolicy
 
 	fd := &s3.FormData{
-		URL:     k.BucketURL,
+		URL:     k.bucketURL,
 		File:    "file",
 		Expires: expiration,
 		FormData: map[string]string{
