@@ -27,4 +27,5 @@ var (
 	ErrTokenUnknown     = NewCodeError(TokenUnknownError, "TokenUnknownError")
 	ErrTokenKicked      = NewCodeError(TokenKickedError, "TokenKickedError")
 	ErrTokenNotExist    = NewCodeError(TokenNotExistError, "TokenNotExistError")
+	ErrVerionError      = NewCodeError(VersionError, "VersionError")
 )
