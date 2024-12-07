@@ -1,19 +1,9 @@
-<h1 align="center" style="border-bottom: none">
-    <b>
-        <a href="https://docs.openim.io">tools</a><br>
-    </b>
-</h1>
 <h3 align="center" style="border-bottom: none">
-      ⭐️  OpenIM tools.  ⭐️ <br>
+      ⭐️  FlyIM tools.  ⭐️ <br>
 <h3>
 
 
 <p align=center>
-<a href="https://goreportcard.com/report/github.com/ammmnia/tools"><img src="https://goreportcard.com/badge/github.com/ammmnia/tools" alt="A+"></a>
-<a href="https://github.com/ammmnia/tools/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22good+first+issue%22"><img src="https://img.shields.io/github/issues/openimsdk/tools/good%20first%20issue?logo=%22github%22" alt="good first"></a>
-<a href="https://github.com/ammmnia/tools"><img src="https://img.shields.io/github/stars/openimsdk/tools.svg?style=flat&logo=github&colorB=deeppink&label=stars"></a>
-<a href="https://join.slack.com/t/openimsdk/shared_invite/zt-22720d66b-o_FvKxMTGXtcnnnHiMqe9Q"><img src="https://img.shields.io/badge/Slack-100%2B-blueviolet?logo=slack&amp;logoColor=white"></a>
-<a href="https://github.com/ammmnia/tools/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-green"></a>
 <a href="https://pkg.go.dev/github.com/ammmnia/tools"><img src="https://img.shields.io/badge/Language-Go-blue.svg"></a>
 </p>
 
@@ -28,7 +18,7 @@
 
 # 项目工具集说明文档
 
-本项目包含了一系列适用于 OpenIM 通用工具和库以及一些其他的项目提供工具支持，旨在支持高效方案开发。以下是各个模块的功能介绍：
+本项目包含了一系列适用于 FlyIM 通用工具和库以及一些其他的项目提供工具支持，旨在支持高效方案开发。以下是各个模块的功能介绍：
 
 ## a2r
 
@@ -74,7 +64,7 @@
 - `color.go`, `encoder.go`, `logger.go`, `sql_logger.go`, `zap.go`, `zk_logger.go`：日志管理模块，支持多种日志格式和输出。
 
 > [!IMPORTANT]
-> 关于 OpenIM log 可以阅读 [https://github.com/openimsdk/open-im-server/blob/main/docs/contrib/logging.md](https://github.com/openimsdk/open-im-server/blob/main/docs/contrib/logging.md)
+> 关于 OpenIM log 可以阅读 [https://github.com/ammmnia/im-server/blob/main/docs/contrib/logging.md](https://github.com/ammmnia/im-server/blob/main/docs/contrib/logging.md)
 
 ## mcontext
 

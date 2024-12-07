@@ -1,8 +1,3 @@
-<h1 align="center" style="border-bottom: none">
-    <b>
-        <a href="https://docs.flyim.io">flyim-tools</a><br>
-    </b>
-</h1>
 <h3 align="center" style="border-bottom: none">
       ⭐️  FlyIM tools.  ⭐️ <br>
 <h3>
@@ -18,13 +13,11 @@
     <a href="./README_zh-CN.md"><b>中文</b></a>
 </p>
 
-</p>
-
 ----
 
 ## Project Toolkit Documentation
 
-This project includes a series of tools and libraries applicable to OpenIM, along with some other project-provided tool supports, aimed at supporting efficient solution development. Below is an introduction to the functionalities of each module:
+This project includes a series of tools and libraries applicable to FlyIM, along with some other project-provided tool supports, aimed at supporting efficient solution development. Below is an introduction to the functionalities of each module:
 
 ## a2r
 
