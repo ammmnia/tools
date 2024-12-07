@@ -29,4 +29,5 @@ const (
 	TokenUnknownError     = 1505
 	TokenKickedError      = 1506
 	TokenNotExistError    = 1507
+	VersionError          = 1508
 )
