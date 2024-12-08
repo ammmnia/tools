@@ -1,0 +1,5 @@
+
+[PersonCats]
+description = "测试"
+one = "{{.Name}} has {{.Count}} cat."
+other = "{{.Name}} has {{.Count}} cats."
