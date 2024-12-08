@@ -24,10 +24,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ammmnia/tools/s3"
-
 	"github.com/ammmnia/tools/errs"
 	"github.com/ammmnia/tools/log"
+	"github.com/ammmnia/tools/s3"
 	"github.com/google/uuid"
 )
 
