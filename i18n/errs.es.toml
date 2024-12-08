@@ -3,3 +3,78 @@
 description = "测试"
 one = "{{.Name}} has {{.Count}} cat."
 other = "{{.Name}} has {{.Count}} cats."
+
+[ArgsError]
+description = "参数错误"
+one = "{{.Name}} has {{.Count}} cat."
+other = "{{.Name}} has {{.Count}} cats."
+
+[NoPermissionError]
+description = "权限错误"
+one = "{{.Name}} has {{.Count}} cat."
+other = "{{.Name}} has {{.Count}} cats."
+
+[ServerInternalError]
+description = "内部错误"
+one = "{{.Name}} has {{.Count}} cat."
+other = "{{.Name}} has {{.Count}} cats."
+
+[RecordNotFoundError]
+description = "内部错误"
+one = "{{.Name}} has {{.Count}} cat."
+other = "{{.Name}} has {{.Count}} cats."
+
+[DuplicateKeyError]
+description = "内部错误"
+one = "{{.Name}} has {{.Count}} cat."
+other = "{{.Name}} has {{.Count}} cats."
+
+[TokenInvalidError]
+description = "内部错误"
+one = "{{.Name}} has {{.Count}} cat."
+other = "{{.Name}} has {{.Count}} cats."
+
+[TokenMalformedError]
+description = "内部错误"
+one = "{{.Name}} has {{.Count}} cat."
+other = "{{.Name}} has {{.Count}} cats."
+
+[TokenNotValidYetError]
+description = "Token无效的"
+one = "{{.Name}} has {{.Count}} cat."
+other = "{{.Name}} has {{.Count}} cats."
+
+[PasswordError]
+description = "密码错误"
+one = "{{.Name}} has {{.Count}} cat."
+other = "{{.Name}} has {{.Count}} cats."
+
+[AccountNotFound]
+description = "账号找不到"
+one = "{{.Name}} has {{.Count}} cat."
+other = "{{.Name}} has {{.Count}} cats."
+
+[PhoneAlreadyRegister]
+description = "电话已经注册"
+one = "{{.Name}} has {{.Count}} cat."
+other = "{{.Name}} has {{.Count}} cats."
+
+[AccountAlreadyRegister]
+description = "账号已经注册"
+one = "{{.Name}} has {{.Count}} cat."
+other = "{{.Name}} has {{.Count}} cats."
+
+[VerifyCodeSendFrequently]
+description = "账号已经注册"
+one = "{{.Name}} has {{.Count}} cat."
+other = "{{.Name}} has {{.Count}} cats."
+
+[Forbidden]
+description = "禁止"
+one = "{{.Name}} has {{.Count}} cat."
+other = "{{.Name}} has {{.Count}} cats."
+
+[RefuseFriend]
+description = "拒绝好友"
+one = "state {{.State}}"
+other = "state {{.State}}"

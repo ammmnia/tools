@@ -15,10 +15,9 @@
 package errs
 
 import (
+	"github.com/ammmnia/tools/i18n"
 	"strconv"
 	"strings"
-
-	"github.com/pkg/errors"
 )
 
 var DefaultCodeRelation = newCodeRelation()
@@ -78,6 +77,21 @@ func (e *codeError) WrapMsg(msg string, kv ...any) error {
 	return WrapMsg(e, msg, kv...)
 }
 
+func (e *codeError) WrapLocal(kv ...any) error {
+	tmp := map[string]interface{}{}
+	for i := 0; i < len(kv); i += 2 {
+		tmp[kv[i].(string)] = kv[i+1]
+	}
+	message, err := i18n.Locale.Localize(&i18n.LocalizeConfig{
+		MessageID:    e.msg,
+		TemplateData: tmp,
+	})
+	if err != nil {
+		return Wrap(e)
+	}
+	return WrapMsg(e, message)
+}
+
 func (e *codeError) Is(err error) bool {
 	codeErr, ok := Unwrap(err).(CodeError)
 	if !ok {
@@ -107,74 +121,4 @@ func (e *codeError) Error() string {
 	}
 
 	return strings.Join(v, " ")
-}
-
-func Unwrap(err error) error {
-	for err != nil {
-		unwrap, ok := err.(interface {
-			Unwrap() error
-		})
-		if !ok {
-			break
-		}
-		err = unwrap.Unwrap()
-	}
-	return err
-}
-
-func Wrap(err error) error {
-	return errors.WithStack(err)
-}
-
-func WrapMsg(err error, msg string, kv ...any) error {
-	if err == nil {
-		return nil
-	}
-	withMessage := errors.WithMessage(err, toString(msg, kv))
-	return errors.WithStack(withMessage)
-}
-
-type CodeRelation interface {
-	Add(codes ...int) error
-	Is(parent, child int) bool
-}
-
-func newCodeRelation() CodeRelation {
-	return &codeRelation{m: make(map[int]map[int]struct{})}
-}
-
-type codeRelation struct {
-	m map[int]map[int]struct{}
-}
-
-const minimumCodesLength = 2
-
-func (r *codeRelation) Add(codes ...int) error {
-	if len(codes) < minimumCodesLength {
-		return New("codes length must be greater than 2", "codes", codes).Wrap()
-	}
-	for i := 1; i < len(codes); i++ {
-		parent := codes[i-1]
-		s, ok := r.m[parent]
-		if !ok {
-			s = make(map[int]struct{})
-			r.m[parent] = s
-		}
-		for _, code := range codes[i:] {
-			s[code] = struct{}{}
-		}
-	}
-	return nil
-}
-
-func (r *codeRelation) Is(parent, child int) bool {
-	if parent == child {
-		return true
-	}
-	s, ok := r.m[parent]
-	if !ok {
-		return false
-	}
-	_, ok = s[child]
-	return ok
 }

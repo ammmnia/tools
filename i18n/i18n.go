@@ -11,6 +11,8 @@ import (
 var LocaleFS embed.FS
 var Locale *i18n.Localizer
 
+type LocalizeConfig = i18n.LocalizeConfig
+
 func init() {
 	bundle := i18n.NewBundle(language.SimplifiedChinese)
 	bundle.RegisterUnmarshalFunc("toml", toml.Unmarshal)

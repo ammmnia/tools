@@ -23,6 +23,7 @@ type Error interface {
 	Is(err error) bool
 	Wrap() error
 	WrapMsg(msg string, kv ...any) error
+	WrapLocal(kv ...any) error
 	error
 }
 
@@ -54,6 +55,10 @@ func (e *errorString) Wrap() error {
 
 func (e *errorString) WrapMsg(msg string, kv ...any) error {
 	return WrapMsg(e, msg, kv...)
+}
+
+func (e *errorString) WrapLocal(kv ...any) error {
+	return WrapMsg(e, "", kv...)
 }
 
 func toString(s string, kv []any) string {
