@@ -15,44 +15,13 @@
 package errs
 
 const (
+	NoError = 0 // No error
 	// General error codes.
 	ServerInternalError = 500  // Server internal error
 	ArgsError           = 1001 // Input parameter error
 	NoPermissionError   = 1002 // Insufficient permission
 	DuplicateKeyError   = 1003
 	RecordNotFoundError = 1004 // Record does not exist
-
-	TokenExpiredError     = 1501
-	TokenInvalidError     = 1502
-	TokenMalformedError   = 1503
-	TokenNotValidYetError = 1504
-	TokenUnknownError     = 1505
-	TokenKickedError      = 1506
-	TokenNotExistError    = 1507
-	VersionError          = 1508
-
-	UnknownCode          = 1000
-	FormattingError      = 10001 // Error in formatting
-	HasRegistered        = 10002 // user has already registered
-	NotRegistered        = 10003 // user is not registered
-	PasswordErr          = 10004 // Password error
-	GetIMTokenErr        = 10005 // Error in getting IM token
-	RepeatSendCode       = 10006 // Repeat sending code
-	MailSendCodeErr      = 10007 // Error in sending code via email
-	SmsSendCodeErr       = 10008 // Error in sending code via SMS
-	CodeInvalidOrExpired = 10009 // Code is invalid or expired
-	RegisterFailed       = 10010 // Registration failed
-	ResetPasswordFailed  = 10011 // Resetting password failed
-	RegisterLimit        = 10012 // Registration limit exceeded
-	LoginLimit           = 10013 // Login limit exceeded
-	InvitationError      = 10014 // Error in invitation
-
-	NoError       = 0     // No error
-	DatabaseError = 90002 // Database error (redis/mysql, etc.)
-	NetworkError  = 90004 // Network error
-	DataError     = 90007 // Data error
-
-	CallbackError = 80000
 
 	// Account error codes.
 	UserIDNotFoundError    = 1101 // UserID does not exist or is not registered
@@ -86,4 +55,36 @@ const (
 
 	// S3 error codes.
 	FileUploadedExpiredError = 1701 // Upload expired
+
+	TokenExpiredError     = 1501
+	TokenInvalidError     = 1502
+	TokenMalformedError   = 1503
+	TokenNotValidYetError = 1504
+	TokenUnknownError     = 1505
+	TokenKickedError      = 1506
+	TokenNotExistError    = 1507
+	VersionError          = 1508
+
+	UnknownCode          = 1000
+	FormattingError      = 10001 // Error in formatting
+	HasRegistered        = 10002 // user has already registered
+	NotRegistered        = 10003 // user is not registered
+	PasswordErr          = 10004 // Password error
+	GetIMTokenErr        = 10005 // Error in getting IM token
+	RepeatSendCode       = 10006 // Repeat sending code
+	MailSendCodeErr      = 10007 // Error in sending code via email
+	SmsSendCodeErr       = 10008 // Error in sending code via SMS
+	CodeInvalidOrExpired = 10009 // Code is invalid or expired
+	RegisterFailed       = 10010 // Registration failed
+	ResetPasswordFailed  = 10011 // Resetting password failed
+	RegisterLimit        = 10012 // Registration limit exceeded
+	LoginLimit           = 10013 // Login limit exceeded
+	InvitationError      = 10014 // Error in invitation
+
+	// db
+	DatabaseError = 90002 // Database error (redis/mysql, etc.)
+	NetworkError  = 90004 // Network error
+	DataError     = 90007 // Data error
+
+	CallbackError = 80000
 )
