@@ -45,4 +45,40 @@ var (
 	ErrEmailAlreadyRegister     = NewCodeError(20014, "EmailAlreadyRegister")
 
 	ErrChatTokenNotExist = NewCodeError(20101, "ChatTokenNotExist")
+
+	ErrDatabase         = NewCodeError(DatabaseError, "DatabaseError")
+	ErrNetwork          = NewCodeError(NetworkError, "NetworkError")
+	ErrCallback         = NewCodeError(CallbackError, "CallbackError")
+	ErrCallbackContinue = NewCodeError(CallbackError, "ErrCallbackContinue")
+
+	ErrUserIDNotFound  = NewCodeError(UserIDNotFoundError, "UserIDNotFoundError")
+	ErrGroupIDNotFound = NewCodeError(GroupIDNotFoundError, "GroupIDNotFoundError")
+	ErrGroupIDExisted  = NewCodeError(GroupIDExisted, "GroupIDExisted")
+
+	ErrNotInGroupYet       = NewCodeError(NotInGroupYetError, "NotInGroupYetError")
+	ErrDismissedAlready    = NewCodeError(DismissedAlreadyError, "DismissedAlreadyError")
+	ErrRegisteredAlready   = NewCodeError(RegisteredAlreadyError, "RegisteredAlreadyError")
+	ErrGroupTypeNotSupport = NewCodeError(GroupTypeNotSupport, "")
+	ErrGroupRequestHandled = NewCodeError(GroupRequestHandled, "GroupRequestHandled")
+
+	ErrData = NewCodeError(DataError, "DataError")
+
+	ErrMessageHasReadDisable = NewCodeError(MessageHasReadDisable, "MessageHasReadDisable")
+
+	ErrCanNotAddYourself   = NewCodeError(CanNotAddYourselfError, "CanNotAddYourselfError")
+	ErrBlockedByPeer       = NewCodeError(BlockedByPeer, "BlockedByPeer")
+	ErrNotPeersFriend      = NewCodeError(NotPeersFriend, "NotPeersFriend")
+	ErrRelationshipAlready = NewCodeError(RelationshipAlreadyError, "RelationshipAlreadyError")
+
+	ErrMutedInGroup     = NewCodeError(MutedInGroup, "MutedInGroup")
+	ErrMutedGroup       = NewCodeError(MutedGroup, "MutedGroup")
+	ErrMsgAlreadyRevoke = NewCodeError(MsgAlreadyRevoke, "MsgAlreadyRevoke")
+
+	ErrConnOverMaxNumLimit = NewCodeError(ConnOverMaxNumLimit, "ConnOverMaxNumLimit")
+
+	ErrConnArgsErr          = NewCodeError(ConnArgsErr, "args err, need token, sendID, platformID")
+	ErrPushMsgErr           = NewCodeError(PushMsgErr, "push msg err")
+	ErrIOSBackgroundPushErr = NewCodeError(IOSBackgroundPushErr, "ios background push err")
+
+	ErrFileUploadedExpired = NewCodeError(FileUploadedExpiredError, "FileUploadedExpiredError")
 )

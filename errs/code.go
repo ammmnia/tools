@@ -30,4 +30,60 @@ const (
 	TokenKickedError      = 1506
 	TokenNotExistError    = 1507
 	VersionError          = 1508
+
+	UnknownCode          = 1000
+	FormattingError      = 10001 // Error in formatting
+	HasRegistered        = 10002 // user has already registered
+	NotRegistered        = 10003 // user is not registered
+	PasswordErr          = 10004 // Password error
+	GetIMTokenErr        = 10005 // Error in getting IM token
+	RepeatSendCode       = 10006 // Repeat sending code
+	MailSendCodeErr      = 10007 // Error in sending code via email
+	SmsSendCodeErr       = 10008 // Error in sending code via SMS
+	CodeInvalidOrExpired = 10009 // Code is invalid or expired
+	RegisterFailed       = 10010 // Registration failed
+	ResetPasswordFailed  = 10011 // Resetting password failed
+	RegisterLimit        = 10012 // Registration limit exceeded
+	LoginLimit           = 10013 // Login limit exceeded
+	InvitationError      = 10014 // Error in invitation
+
+	NoError       = 0     // No error
+	DatabaseError = 90002 // Database error (redis/mysql, etc.)
+	NetworkError  = 90004 // Network error
+	DataError     = 90007 // Data error
+
+	CallbackError = 80000
+
+	// Account error codes.
+	UserIDNotFoundError    = 1101 // UserID does not exist or is not registered
+	RegisteredAlreadyError = 1102 // user is already registered
+
+	// Group error codes.
+	GroupIDNotFoundError  = 1201 // GroupID does not exist
+	GroupIDExisted        = 1202 // GroupID already exists
+	NotInGroupYetError    = 1203 // Not in the group yet
+	DismissedAlreadyError = 1204 // Group has already been dismissed
+	GroupTypeNotSupport   = 1205
+	GroupRequestHandled   = 1206
+
+	// Relationship error codes.
+	CanNotAddYourselfError   = 1301 // Cannot add yourself as a friend
+	BlockedByPeer            = 1302 // Blocked by the peer
+	NotPeersFriend           = 1303 // Not the peer's friend
+	RelationshipAlreadyError = 1304 // Already in a friend relationship
+
+	// Message error codes.
+	MessageHasReadDisable = 1401
+	MutedInGroup          = 1402 // Member muted in the group
+	MutedGroup            = 1403 // Group is muted
+	MsgAlreadyRevoke      = 1404 // Message already revoked
+
+	// Long connection gateway error codes.
+	ConnOverMaxNumLimit  = 1601
+	ConnArgsErr          = 1602
+	PushMsgErr           = 1603
+	IOSBackgroundPushErr = 1604
+
+	// S3 error codes.
+	FileUploadedExpiredError = 1701 // Upload expired
 )
