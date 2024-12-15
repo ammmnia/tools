@@ -122,3 +122,11 @@ func (c *HTTPClient) PostReturn(ctx context.Context, url string, headers map[str
 	}
 	return nil
 }
+
+func (c *HTTPClient) PostReturnNoOutput(ctx context.Context, url string, headers map[string]string, input, timeout int) (string, error) {
+	responseBytes, err := c.Post(ctx, url, headers, input, timeout)
+	if err != nil {
+		return "", err
+	}
+	return string(responseBytes), nil
+}
