@@ -4,76 +4,150 @@ one = "{{.Name}} 有 {{.Count}} 猫."
 other = "{{.Name}} 有 {{.Count}} 猫."
 
 [ArgsError]
-description = "参数错误"
-one = "{{.Name}} has {{.Count}} cat."
-other = "{{.Name}} has {{.Count}} cats."
+description = "输入有误，请检查后重试"
+one = "输入有误，请检查后重试 {{.ArgsError}}"
+other = "输入有误，请检查后重试 {{.ArgsError}}"
 
 [NoPermissionError]
-description = "权限错误"
-one = "{{.Name}} has {{.Count}} cat."
-other = "{{.Name}} has {{.Count}} cats."
+description = "访问受限，请获取相关权限后重试"
+one = "访问受限，请获取相关权限后重试 {{.NoPermissionError}} "
+other = "访问受限，请获取相关权限后重试 {{.NoPermissionError}} "
 
 [ServerInternalError]
-description = "内部错误"
-one = "{{.Name}} has {{.Count}} cat."
-other = "{{.Name}} has {{.Count}} cats."
+description = "服务器开小差了，请稍后重试"
+one = "服务器开小差了，请稍后重试 {{.ServerInternalError}} "
+other = "服务器开小差了，请稍后重试 {{.ServerInternalError}} "
+
+[DatabaseError]
+description = "服务器开小差了，请稍后重试"
+one = "服务器开小差了，请稍后重试 {{.DatabaseError}} "
+other = "服务器开小差了，请稍后重试 {{.DatabaseError}} "
+
+[DataError]
+description = "服务器开小差了，请稍后重试"
+one = "服务器开小差了，请稍后重试 {{.DataError}} "
+other = "服务器开小差了，请稍后重试 {{.DataError}} "
+
+[CallbackError]
+description = "服务器开小差了，请稍后重试"
+one = "服务器开小差了，请稍后重试 {{.CallbackError}} "
+other = "服务器开小差了，请稍后重试 {{.CallbackError}} "
+
+[NetworkError]
+description = "网络连接失败，请稍后重试"
+one = "服务器开小差了，请稍后重试 {{.NetworkError}} "
+other = "服务器开小差了，请稍后重试 {{.NetworkError}} "
 
 [RecordNotFoundError]
-description = "内部错误"
-one = "{{.Name}} has {{.Count}} cat."
-other = "{{.Name}} has {{.Count}} cats."
+description = "未找到相关记录，请检查后重试"
+one = "未找到相关记录，请检查后重试 {{.RecordNotFoundError}} "
+other = "未找到相关记录，请检查后重试 {{.RecordNotFoundError}} "
+
+[UserIDNotFoundError]
+description = "未找到相关记录，请检查后重试"
+one = "未找到相关记录，请检查后重试 {{.UserIDNotFoundError}} "
+other = "未找到相关记录，请检查后重试 {{.UserIDNotFoundError}} "
+
+[GroupIDNotFoundError]
+description = "未找到相关记录，请检查后重试"
+one = "未找到相关记录，请检查后重试 {{.GroupIDNotFoundError}} "
+other = "未找到相关记录，请检查后重试 {{.GroupIDNotFoundError}} "
+
+[GroupIDExisted]
+description = "操作失败，数据已存在"
+one = "操作失败，数据已存在 {{.GroupIDExisted}} "
+other = "操作失败，数据已存在 {{.GroupIDExisted}} "
 
 [DuplicateKeyError]
-description = "内部错误"
-one = "{{.Name}} has {{.Count}} cat."
-other = "{{.Name}} has {{.Count}} cats."
+description = "操作失败，数据已存在"
+one = "操作失败，数据已存在 {{.DuplicateKeyError}} "
+other = "操作失败，数据已存在 {{.DuplicateKeyError}} "
+
+[TokenExpiredError]
+description = "登录信息已过期，请重新登录"
+one = "登录信息已过期，请重新登录 {{.TokenExpiredError}} "
+other = "登录信息已过期，请重新登录 {{.TokenExpiredError}} "
 
 [TokenInvalidError]
-description = "内部错误"
-one = "{{.Name}} has {{.Count}} cat."
-other = "{{.Name}} has {{.Count}} cats."
+description = "登录信息已过期，请重新登录"
+one = "登录信息已过期，请重新登录 {{.TokenInvalidError}} "
+other = "登录信息已过期，请重新登录 {{.TokenInvalidError}} "
 
 [TokenMalformedError]
-description = "内部错误"
-one = "{{.Name}} has {{.Count}} cat."
-other = "{{.Name}} has {{.Count}} cats."
+description = "登录信息已过期，请重新登录"
+one = "登录信息已过期，请重新登录 {{.TokenMalformedError}} "
+other = "登录信息已过期，请重新登录 {{.TokenMalformedError}} "
 
 [TokenNotValidYetError]
-description = "Token无效的"
-one = "{{.Name}} has {{.Count}} cat."
-other = "{{.Name}} has {{.Count}} cats."
+description = "登录信息已过期，请重新登录"
+one = "登录信息已过期，请重新登录 {{.TokenNotValidYetError}} "
+other = "登录信息已过期，请重新登录 {{.TokenNotValidYetError}} "
 
-[PasswordError]
-description = "密码错误"
-one = "{{.Name}} has {{.Count}} cat."
-other = "{{.Name}} has {{.Count}} cats."
+[TokenUnknownError]
+description = "登录信息已过期，请重新登录"
+one = "登录信息已过期，请重新登录 {{.TokenUnknownError}} "
+other = "登录信息已过期，请重新登录 {{.TokenUnknownError}} "
+
+[TokenKickedError]
+description = "登录信息已过期，请重新登录"
+one = "登录信息已过期，请重新登录 {{.TokenKickedError}} "
+other = "登录信息已过期，请重新登录 {{.TokenKickedError}} "
+
+[TokenNotExistError]
+description = "登录信息已过期，请重新登录"
+one = "登录信息已过期，请重新登录 {{.TokenNotExistError}} "
+other = "登录信息已过期，请重新登录 {{.TokenNotExistError}} "
+
+[ChatTokenNotExist]
+description = "登录信息已过期，请重新登录"
+one = "登录信息已过期，请重新登录 {{.ChatTokenNotExist}} "
+other = "登录信息已过期，请重新登录 {{.ChatTokenNotExist}} "
+
+[PasswordErr]
+description = "密码输入错误，请检查后重试"
+one = "密码输入错误，请检查后重试 {{.PasswordErr}} "
+other = "密码输入错误，请检查后重试 {{.PasswordErr}} "
 
 [AccountNotFound]
-description = "账号找不到"
-one = "{{.Name}} has {{.Count}} cat."
-other = "{{.Name}} has {{.Count}} cats."
+description = "帐户不存在，请确认输入信息"
+one = "帐户不存在，请确认输入信息 {{.AccountNotFound}} "
+other = "帐户不存在，请确认输入信息 {{.AccountNotFound}} "
 
 [PhoneAlreadyRegister]
-description = "电话已经注册"
-one = "{{.Name}} has {{.Count}} cat."
-other = "{{.Name}} has {{.Count}} cats."
+description = "此电话已绑定账号，请勿重复注册"
+one = "此电话已绑定账号，请勿重复注册 {{.PhoneAlreadyRegister}} "
+other = "此电话已绑定账号，请勿重复注册 {{.PhoneAlreadyRegister}} "
 
 [AccountAlreadyRegister]
-description = "账号已经注册"
-one = "{{.Name}} has {{.Count}} cat."
-other = "{{.Name}} has {{.Count}} cats."
+description = "账户已存在，请尝试登录"
+one = "账户已存在，请尝试登录 {{.AccountAlreadyRegister}} "
+other = "账户已存在，请尝试登录 {{.AccountAlreadyRegister}} "
+
+[RegisteredAlreadyError]
+one = "用户已注册，请尝试登录 {{.RegisteredAlreadyError}}"
+other = "用户已注册，请尝试登录 {{.RegisteredAlreadyError}}"
 
 [VerifyCodeSendFrequently]
-description = "账号已经注册"
-one = "{{.Name}} has {{.Count}} cat."
-other = "{{.Name}} has {{.Count}} cats."
+description = "验证码发送过于频繁，请稍后再试"
+one = "验证码发送过于频繁，请稍后再试 {{.VerifyCodeSendFrequently}} "
+other = "验证码发送过于频繁，请稍后再试 {{.VerifyCodeSendFrequently}} "
+
+[VerifyCodeNotMatch]
+description = "验证码不正确，请稍后再试"
+one = "验证码不正确，请稍后再试 {{.VerifyCodeNotMatch}} "
+other = "验证码不正确，请稍后再试 {{.VerifyCodeNotMatch}} "
+
+[VerifyCodeExpired]
+description = "验证码已过期，请稍后再试"
+one = "验证码已过期，请稍后再试 {{.VerifyCodeExpired}} "
+other = "验证码已过期，请稍后再试 {{.VerifyCodeExpired}} "
 
 [Forbidden]
-description = "禁止"
-one = "{{.Location}}禁止"
-other = "{{.Location}}禁止"
+description = "该操作已被禁止，请联系管理员"
+one = "该操作已被禁止，请联系管理员 {{.Forbidden}}"
+other = "该操作已被禁止，请联系管理员 {{.Forbidden}}"
 
 [RefuseFriend]
-description = "拒绝好友"
-one = "拒绝状态 {{.State}}"
-other = "拒绝状态 {{.State}}"
+description = "该操作已被禁止，请联系管理员"
+one = "该操作已被禁止，请联系管理员 {{.RefuseFriend}}"
+other = "该操作已被禁止，请联系管理员 {{.RefuseFriend}}"

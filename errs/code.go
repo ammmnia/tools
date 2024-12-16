@@ -81,6 +81,19 @@ const (
 	LoginLimit           = 10013 // Login limit exceeded
 	InvitationError      = 10014 // Error in invitation
 
+	AccountNotFound          = 20002
+	PhoneAlreadyRegister     = 20003
+	AccountAlreadyRegister   = 20004
+	VerifyCodeSendFrequently = 20005
+	VerifyCodeNotMatch       = 20006
+	VerifyCodeExpired        = 20007
+	VerifyCodeMaxCount       = 20008
+	VerifyCodeUsed           = 20009
+	Forbidden                = 20012
+	RefuseFriend             = 20013
+	EmailAlreadyRegister     = 20014
+	ChatTokenNotExist        = 20101
+
 	// db
 	DatabaseError = 90002 // Database error (redis/mysql, etc.)
 	NetworkError  = 90004 // Network error

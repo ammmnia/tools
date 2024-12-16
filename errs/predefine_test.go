@@ -3,6 +3,6 @@ package errs
 import "testing"
 
 func TestWrap(t *testing.T) {
-	err := ErrRefuseFriend.WrapMsgKV("State", 1)
+	err := ErrRefuseFriend.WrapLocal(ErrRefuseFriend.Msg(), ErrRefuseFriend.Code())
 	t.Log(err)
 }
