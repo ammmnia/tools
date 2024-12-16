@@ -15,7 +15,10 @@ const (
 	SysMsgType  MsgFrom = 200
 
 	// SessionType.
-	SingleChatType SessionType = 1
+	SingleChatType       SessionType = 1
+	WriteGroupChatType   SessionType = 2 // WriteGroupChatType Not enabled temporarily
+	ReadGroupChatType    SessionType = 3
+	NotificationChatType SessionType = 4
 
 	// sendMsgStaus.
 	MsgStatusNotExist SendMsgStaus = 0

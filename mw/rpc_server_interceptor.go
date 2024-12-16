@@ -60,14 +60,14 @@ func validateMetadata(ctx context.Context) (metadata.MD, error) {
 	if !ok {
 		return nil, status.New(codes.InvalidArgument, "missing metadata").Err()
 	}
-	if len(md.Get(constant.OperationID)) != 1 {
+	if len(md.Get(string(constant.OperationID))) != 1 {
 		return nil, status.New(codes.InvalidArgument, "operationID error").Err()
 	}
 	return md, nil
 }
 
 func enrichContextWithMetadata(ctx context.Context, md metadata.MD) (context.Context, error) {
-	if keys := md.Get(constant.RpcCustomHeader); len(keys) > 0 {
+	if keys := md.Get(string(constant.RpcCustomHeader)); len(keys) > 0 {
 		ctx = context.WithValue(ctx, constant.RpcCustomHeader, keys)
 		for _, key := range keys {
 			values := md.Get(key)
@@ -77,14 +77,14 @@ func enrichContextWithMetadata(ctx context.Context, md metadata.MD) (context.Con
 			ctx = context.WithValue(ctx, key, values)
 		}
 	}
-	ctx = context.WithValue(ctx, constant.OperationID, md.Get(constant.OperationID)[0])
-	if opts := md.Get(constant.OpUserID); len(opts) == 1 {
+	ctx = context.WithValue(ctx, constant.OperationID, md.Get(string(constant.OperationID))[0])
+	if opts := md.Get(string(constant.OpUserID)); len(opts) == 1 {
 		ctx = context.WithValue(ctx, constant.OpUserID, opts[0])
 	}
-	if opts := md.Get(constant.OpUserPlatform); len(opts) == 1 {
+	if opts := md.Get(string(constant.OpUserPlatform)); len(opts) == 1 {
 		ctx = context.WithValue(ctx, constant.OpUserPlatform, opts[0])
 	}
-	if opts := md.Get(constant.ConnID); len(opts) == 1 {
+	if opts := md.Get(string(constant.ConnID)); len(opts) == 1 {
 		ctx = context.WithValue(ctx, constant.ConnID, opts[0])
 	}
 	return ctx, nil

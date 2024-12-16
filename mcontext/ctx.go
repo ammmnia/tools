@@ -21,7 +21,7 @@ import (
 	"github.com/ammmnia/tools/errs"
 )
 
-var mapper = []string{constant.OperationID, constant.OpUserID, constant.OpUserPlatform, constant.ConnID}
+var mapper = []constant.MetaKey{constant.OperationID, constant.OpUserID, constant.OpUserPlatform, constant.ConnID}
 
 func WithOpUserIDContext(ctx context.Context, opUserID string) context.Context {
 	return context.WithValue(ctx, constant.OpUserID, opUserID)

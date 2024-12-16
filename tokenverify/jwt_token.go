@@ -17,6 +17,7 @@ package tokenverify
 import (
 	"time"
 
+	"github.com/ammmnia/tools/constant"
 	"github.com/ammmnia/tools/errs"
 	"github.com/golang-jwt/jwt/v4"
 )
@@ -26,11 +27,11 @@ const minutesBefore = 5
 
 type Claims struct {
 	UserID     string
-	PlatformID int // login platform
+	PlatformID constant.PlatformID // login platform
 	jwt.RegisteredClaims
 }
 
-func BuildClaims(uid string, platformID int, ttl int64) Claims {
+func BuildClaims(uid string, platformID constant.PlatformID, ttl int64) Claims {
 	now := time.Now()
 	before := now.Add(-time.Minute * time.Duration(minutesBefore))
 	return Claims{

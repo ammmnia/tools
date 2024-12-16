@@ -83,28 +83,28 @@ func getRpcContext(ctx context.Context, method string) (context.Context, error) 
 			}
 			md.Set(key, val...)
 		}
-		md.Set(constant.RpcCustomHeader, keys...)
+		md.Set(string(constant.RpcCustomHeader), keys...)
 	}
 	operationID, ok := ctx.Value(constant.OperationID).(string)
 	if !ok {
 		log.ZWarn(ctx, "ctx missing operationID", errs.New("ctx missing operationID"), "funcName", method)
 		return nil, errs.ErrArgs.WrapMsg("ctx missing operationID")
 	}
-	md.Set(constant.OperationID, operationID)
+	md.Set(string(constant.OperationID), operationID)
 	// var checkArgs []string
 	// checkArgs = append(checkArgs, constant.OperationID, operationID)
 	opUserID, ok := ctx.Value(constant.OpUserID).(string)
 	if ok {
-		md.Set(constant.OpUserID, opUserID)
+		md.Set(string(constant.OpUserID), opUserID)
 		// checkArgs = append(checkArgs, constant.OpUserID, opUserID)
 	}
 	opUserIDPlatformID, ok := ctx.Value(constant.OpUserPlatform).(string)
 	if ok {
-		md.Set(constant.OpUserPlatform, opUserIDPlatformID)
+		md.Set(string(constant.OpUserPlatform), opUserIDPlatformID)
 	}
 	connID, ok := ctx.Value(constant.ConnID).(string)
 	if ok {
-		md.Set(constant.ConnID, connID)
+		md.Set(string(constant.ConnID), connID)
 	}
 	return metadata.NewOutgoingContext(ctx, md), nil
 }

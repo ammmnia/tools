@@ -64,14 +64,14 @@ func CorsHandler() gin.HandlerFunc {
 func GinParseOperationID() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if c.Request.Method == http.MethodPost {
-			operationID := c.Request.Header.Get(constant.OperationID)
+			operationID := c.Request.Header.Get(string(constant.OperationID))
 			if operationID == "" {
 				err := errs.New("header must have operationID")
 				apiresp.GinError(c, errs.ErrArgs.WrapMsg(err.Error()))
 				c.Abort()
 				return
 			}
-			c.Set(constant.OperationID, operationID)
+			c.Set(string(constant.OperationID), operationID)
 		}
 		c.Next()
 	}
@@ -88,7 +88,7 @@ func GinParseToken(secretKey jwt.Keyfunc, whitelist []string) gin.HandlerFunc {
 				}
 			}
 
-			token := c.Request.Header.Get(constant.Token)
+			token := c.Request.Header.Get(string(constant.Token))
 			if token == "" {
 				apiresp.GinError(c, errs.ErrArgs.WrapMsg("header must have token"))
 				c.Abort()
@@ -103,14 +103,14 @@ func GinParseToken(secretKey jwt.Keyfunc, whitelist []string) gin.HandlerFunc {
 				return
 			}
 
-			c.Set(constant.OpUserPlatform, constant.PlatformIDToName(claims.PlatformID))
-			c.Set(constant.OpUserID, claims.UserID)
+			c.Set(string(constant.OpUserPlatform), constant.PlatformIDToName(claims.PlatformID))
+			c.Set(string(constant.OpUserID), claims.UserID)
 			c.Next()
 		}
 	}
 }
 
-func CreateToken(userID string, accessSecret string, accessExpire int64, platformID int) (string, error) {
+func CreateToken(userID string, accessSecret string, accessExpire int64, platformID constant.PlatformID) (string, error) {
 	claims := tokenverify.BuildClaims(userID, platformID, accessExpire)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, err := token.SignedString([]byte(accessSecret))
