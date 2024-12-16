@@ -29,7 +29,7 @@ var (
 	ErrTokenNotExist    = NewCodeError(TokenNotExistError, "TokenNotExistError")
 	ErrVerionError      = NewCodeError(VersionError, "VersionError")
 
-	ErrPassword                 = NewCodeError(PasswordErr, "PasswordError")
+	ErrPassword                 = NewCodeError(PasswordErr, "PasswordErr")
 	ErrAccountNotFound          = NewCodeError(AccountNotFound, "AccountNotFound")
 	ErrPhoneAlreadyRegister     = NewCodeError(PhoneAlreadyRegister, "PhoneAlreadyRegister")
 	ErrAccountAlreadyRegister   = NewCodeError(AccountAlreadyRegister, "AccountAlreadyRegister")
