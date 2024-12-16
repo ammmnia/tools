@@ -16,12 +16,6 @@ package constant
 
 const (
 
-	// token.
-	NormalToken  = 0
-	InValidToken = 1
-	KickedToken  = 2
-	ExpiredToken = 3
-
 	// OnlineStatus  = "online"
 	// OfflineStatus = "offline"
 	// Registered    = "registered"
@@ -32,25 +26,6 @@ const (
 
 	Registered   = 1
 	UnRegistered = 0
-
-	// MsgReceiveOpt.
-	ReceiveMessage          = 0
-	NotReceiveMessage       = 1
-	ReceiveNotNotifyMessage = 2
-
-	// OptionsKey.
-	IsHistory                  = "history"
-	IsPersistent               = "persistent"
-	IsOfflinePush              = "offlinePush"
-	IsUnreadCount              = "unreadCount"
-	IsConversationUpdate       = "conversationUpdate"
-	IsSenderSync               = "senderSync"
-	IsNotPrivate               = "notPrivate"
-	IsSenderConversationUpdate = "senderConversationUpdate"
-	IsSenderNotificationPush   = "senderNotificationPush"
-	IsReactionFromCache        = "reactionFromCache"
-	IsNotNotification          = "isNotNotification"
-	IsSendMsg                  = "isSendMsg"
 )
 
 const (
@@ -86,13 +61,6 @@ const (
 	GroupAdmin         = 60
 	GroupOrdinaryUsers = 20
 
-	GroupResponseAgree  = 1
-	GroupResponseRefuse = -1
-
-	FriendResponseNotHandle = 0
-	FriendResponseAgree     = 1
-	FriendResponseRefuse    = -1
-
 	Male   = 1
 	Female = 2
 )
@@ -107,15 +75,6 @@ const FriendAcceptTip = "You have successfully become friends, so start chatting
 const LogFileName = "OpenIM.log"
 
 const LocalHost = "0.0.0.0"
-
-// flag parse.
-const (
-	FlagPort                  = "port"
-	FlagWsPort                = "ws_port"
-	FlagTransferProgressIndex = "transferProgressIndex"
-	FlagPrometheusPort        = "prometheus_port"
-	FlagConf                  = "config_folder_path"
-)
 
 const OpenIMCommonConfigKey = "OpenIMServerConfig"
 

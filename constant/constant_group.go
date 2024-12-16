@@ -3,6 +3,7 @@ package constant
 type GroupStatus int
 type GroupType int
 type UserJoinGroupSource int
+type GroupResponse int
 
 const (
 	// GroupStatus.
@@ -23,6 +24,9 @@ const (
 	JoinByInvitation UserJoinGroupSource = 2
 	JoinBySearch     UserJoinGroupSource = 3
 	JoinByQRCode     UserJoinGroupSource = 4
+
+	GroupResponseAgree  GroupResponse = 1
+	GroupResponseRefuse GroupResponse = -1
 )
 
 type EnterGroupVerificationType int
