@@ -5,8 +5,8 @@ other = "{{.Name}} 有 {{.Count}} 猫."
 
 [ArgsError]
 description = "输入有误，请检查后重试"
-one = "输入有误，请检查后重试 {{.ArgsError}}"
-other = "输入有误，请检查后重试 {{.ArgsError}}"
+one = "{{.ArgsError}} 输入有误，请检查后重试 "
+other = "{{.ArgsError}} 输入有误，请检查后重试 "
 
 [NoPermissionError]
 description = "访问受限，请获取相关权限后重试"
