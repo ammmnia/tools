@@ -16,18 +16,22 @@ package constant
 
 // fixme 1<--->IOS 2<--->Android  3<--->Windows
 // fixme  4<--->OSX  5<--->Web  6<--->MiniWeb 7<--->Linux.
+
+type PlatformID int
+type TerminalType string
+
 const (
 	// Platform ID.
-	IOSPlatformID        = 1
-	AndroidPlatformID    = 2
-	WindowsPlatformID    = 3
-	OSXPlatformID        = 4
-	WebPlatformID        = 5
-	MiniWebPlatformID    = 6
-	LinuxPlatformID      = 7
-	AndroidPadPlatformID = 8
-	IPadPlatformID       = 9
-	AdminPlatformID      = 10
+	IOSPlatformID        PlatformID = 1
+	AndroidPlatformID    PlatformID = 2
+	WindowsPlatformID    PlatformID = 3
+	OSXPlatformID        PlatformID = 4
+	WebPlatformID        PlatformID = 5
+	MiniWebPlatformID    PlatformID = 6
+	LinuxPlatformID      PlatformID = 7
+	AndroidPadPlatformID PlatformID = 8
+	IPadPlatformID       PlatformID = 9
+	AdminPlatformID      PlatformID = 10
 
 	// Platform string match to Platform ID.
 	IOSPlatformStr        = "IOS"
@@ -42,11 +46,13 @@ const (
 	AdminPlatformStr      = "Admin"
 
 	// terminal types.
-	TerminalPC     = "PC"
-	TerminalMobile = "Mobile"
+	TerminalPC     TerminalType = "PC"
+	TerminalMobile TerminalType = "Mobile"
+	TerminalWeb    TerminalType = "Web"
+	TerminalAdmin  TerminalType = "Admin"
 )
 
-var PlatformID2Name = map[int]string{
+var PlatformID2Name = map[PlatformID]string{
 	IOSPlatformID:        IOSPlatformStr,
 	AndroidPlatformID:    AndroidPlatformStr,
 	WindowsPlatformID:    WindowsPlatformStr,
@@ -59,7 +65,7 @@ var PlatformID2Name = map[int]string{
 	AdminPlatformID:      AdminPlatformStr,
 }
 
-var PlatformName2ID = map[string]int{
+var PlatformName2ID = map[string]PlatformID{
 	IOSPlatformStr:        IOSPlatformID,
 	AndroidPlatformStr:    AndroidPlatformID,
 	WindowsPlatformStr:    WindowsPlatformID,
@@ -72,44 +78,44 @@ var PlatformName2ID = map[string]int{
 	AdminPlatformStr:      AdminPlatformID,
 }
 
-var PlatformName2class = map[string]string{
+var PlatformName2class = map[string]TerminalType{
 	IOSPlatformStr:        TerminalMobile,
 	AndroidPlatformStr:    TerminalMobile,
-	MiniWebPlatformStr:    WebPlatformStr,
-	WebPlatformStr:        WebPlatformStr,
+	MiniWebPlatformStr:    TerminalWeb,
+	WebPlatformStr:        TerminalWeb,
 	WindowsPlatformStr:    TerminalPC,
 	OSXPlatformStr:        TerminalPC,
 	LinuxPlatformStr:      TerminalPC,
 	AndroidPadPlatformStr: TerminalMobile,
 	IPadPlatformStr:       TerminalMobile,
-	AdminPlatformStr:      AdminPlatformStr,
+	AdminPlatformStr:      TerminalAdmin,
 }
 
-var PlatformID2class = map[int]string{
+var PlatformID2class = map[PlatformID]TerminalType{
 	IOSPlatformID:        TerminalMobile,
 	AndroidPlatformID:    TerminalMobile,
-	MiniWebPlatformID:    WebPlatformStr,
-	WebPlatformID:        WebPlatformStr,
+	MiniWebPlatformID:    TerminalWeb,
+	WebPlatformID:        TerminalWeb,
 	WindowsPlatformID:    TerminalPC,
 	OSXPlatformID:        TerminalPC,
 	LinuxPlatformID:      TerminalPC,
 	AndroidPadPlatformID: TerminalMobile,
 	IPadPlatformID:       TerminalMobile,
-	AdminPlatformID:      AdminPlatformStr,
+	AdminPlatformID:      TerminalAdmin,
 }
 
-func PlatformIDToName(num int) string {
+func PlatformIDToName(num PlatformID) string {
 	return PlatformID2Name[num]
 }
 
-func PlatformNameToID(name string) int {
+func PlatformNameToID(name string) PlatformID {
 	return PlatformName2ID[name]
 }
 
-func PlatformNameToClass(name string) string {
+func PlatformNameToClass(name string) TerminalType {
 	return PlatformName2class[name]
 }
 
-func PlatformIDToClass(num int) string {
+func PlatformIDToClass(num PlatformID) TerminalType {
 	return PlatformID2class[num]
 }

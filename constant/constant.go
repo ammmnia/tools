@@ -16,120 +16,6 @@ package constant
 
 const (
 
-	///ContentType
-	//UserRelated.
-	ContentTypeBegin = 100
-	Text             = 101
-	Picture          = 102
-	Voice            = 103
-	Video            = 104
-	File             = 105
-	AtText           = 106
-	Merger           = 107
-	Card             = 108
-	Location         = 109
-	Custom           = 110
-	Revoke           = 111
-	Typing           = 113
-	Quote            = 114
-
-	AdvancedText = 117
-
-	CustomNotTriggerConversation = 119
-	CustomOnlineOnly             = 120
-	ReactionMessageModifier      = 121
-	ReactionMessageDeleter       = 122
-
-	Common             = 200
-	GroupMsg           = 201
-	SignalMsg          = 202
-	CustomNotification = 203
-
-	// SysRelated.
-	NotificationBegin = 1000
-
-	FriendApplicationApprovedNotification = 1201 // add_friend_response
-	FriendApplicationRejectedNotification = 1202 // add_friend_response
-	FriendApplicationNotification         = 1203 // add_friend
-	FriendAddedNotification               = 1204
-	FriendDeletedNotification             = 1205 // delete_friend
-	FriendRemarkSetNotification           = 1206 // set_friend_remark?
-	BlackAddedNotification                = 1207 // add_black
-	BlackDeletedNotification              = 1208 // remove_black
-	FriendInfoUpdatedNotification         = 1209
-	FriendsInfoUpdateNotification         = 1210 //update friend info
-
-	ConversationChangeNotification = 1300 // change conversation opt
-
-	UserNotificationBegin         = 1301
-	UserInfoUpdatedNotification   = 1303 // SetSelfInfoTip              = 204
-	UserStatusChangeNotification  = 1304
-	UserCommandAddNotification    = 1305
-	UserCommandDeleteNotification = 1306
-	UserCommandUpdateNotification = 1307
-
-	UserSubscribeOnlineStatusNotification = 1308
-
-	UserNotificationEnd = 1399
-	OANotification      = 1400
-
-	GroupNotificationBegin = 1500
-
-	GroupCreatedNotification                 = 1501
-	GroupInfoSetNotification                 = 1502
-	JoinGroupApplicationNotification         = 1503
-	MemberQuitNotification                   = 1504
-	GroupApplicationAcceptedNotification     = 1505
-	GroupApplicationRejectedNotification     = 1506
-	GroupOwnerTransferredNotification        = 1507
-	MemberKickedNotification                 = 1508
-	MemberInvitedNotification                = 1509
-	MemberEnterNotification                  = 1510
-	GroupDismissedNotification               = 1511
-	GroupMemberMutedNotification             = 1512
-	GroupMemberCancelMutedNotification       = 1513
-	GroupMutedNotification                   = 1514
-	GroupCancelMutedNotification             = 1515
-	GroupMemberInfoSetNotification           = 1516
-	GroupMemberSetToAdminNotification        = 1517
-	GroupMemberSetToOrdinaryUserNotification = 1518
-	GroupInfoSetAnnouncementNotification     = 1519
-	GroupInfoSetNameNotification             = 1520
-
-	//SignalingNotificationBegin = 1600
-	//SignalingNotification      = 1601
-	//SignalingNotificationEnd   = 1649
-
-	SuperGroupNotificationBegin  = 1650
-	SuperGroupUpdateNotification = 1651
-	MsgDeleteNotification        = 1652
-	SuperGroupNotificationEnd    = 1699
-
-	ConversationPrivateChatNotification = 1701
-	ConversationUnreadNotification      = 1702
-	ClearConversationNotification       = 1703
-
-	BusinessNotificationBegin = 2000
-	BusinessNotification      = 2001
-	BusinessNotificationEnd   = 2099
-
-	MsgRevokeNotification  = 2101
-	DeleteMsgsNotification = 2102
-
-	HasReadReceipt = 2200
-
-	NotificationEnd = 5000
-
-	// status.
-	MsgNormal  = 1
-	MsgDeleted = 4
-
-	// MsgFrom.
-	UserMsgType = 100
-	SysMsgType  = 200
-
-	// SessionType.
-	SingleChatType = 1
 	// WriteGroupChatType Not enabled temporarily
 	WriteGroupChatType   = 2
 	ReadGroupChatType    = 3
@@ -139,22 +25,6 @@ const (
 	InValidToken = 1
 	KickedToken  = 2
 	ExpiredToken = 3
-
-	// MultiTerminalLogin.
-	DefalutNotKick = 0
-	// Full-end login, but the same end is mutually exclusive.
-	AllLoginButSameTermKick = 1
-	// Only one of the endpoints can log in.
-	SingleTerminalLogin = 2
-	// The web side can be online at the same time, and the other side can only log in at one end.
-	WebAndOther = 3
-	// The PC side is mutually exclusive, and the mobile side is mutually exclusive, but the web side can be online at
-	// the same time.
-	PcMobileAndWeb = 4
-	// The PC terminal can be online at the same time,but other terminal only one of the endpoints can login.
-	PCAndOther = 5
-	// Customize login policy
-	Customize = 6
 
 	// OnlineStatus  = "online"
 	// OfflineStatus = "offline"
@@ -185,72 +55,6 @@ const (
 	IsReactionFromCache        = "reactionFromCache"
 	IsNotNotification          = "isNotNotification"
 	IsSendMsg                  = "isSendMsg"
-
-	// GroupStatus.
-	GroupOk              = 0
-	GroupBanChat         = 1
-	GroupStatusDismissed = 2
-	GroupStatusMuted     = 3
-
-	// GroupType.
-	NormalGroup  = 0
-	SuperGroup   = 1
-	WorkingGroup = 2
-
-	GroupBaned          = 3
-	GroupBanPrivateChat = 4
-
-	// UserJoinGroupSource.
-	JoinByAdmin = 1
-
-	JoinByInvitation = 2
-	JoinBySearch     = 3
-	JoinByQRCode     = 4
-
-	// Minio.
-	MinioDurationTimes = 3600
-	// Aws.
-	AwsDurationTimes = 3600
-
-	// callbackCommand.
-	CallbackBeforeSendSingleMsgCommand                   = "callbackBeforeSendSingleMsgCommand"
-	CallbackAfterSendSingleMsgCommand                    = "callbackAfterSendSingleMsgCommand"
-	CallbackBeforeSendGroupMsgCommand                    = "callbackBeforeSendGroupMsgCommand"
-	CallbackAfterSendGroupMsgCommand                     = "callbackAfterSendGroupMsgCommand"
-	CallbackMsgModifyCommand                             = "callbackMsgModifyCommand"
-	CallbackUserOnlineCommand                            = "callbackUserOnlineCommand"
-	CallbackUserOfflineCommand                           = "callbackUserOfflineCommand"
-	CallbackUserKickOffCommand                           = "callbackUserKickOffCommand"
-	CallbackOfflinePushCommand                           = "callbackOfflinePushCommand"
-	CallbackOnlinePushCommand                            = "callbackOnlinePushCommand"
-	CallbackSuperGroupOnlinePushCommand                  = "callbackSuperGroupOnlinePushCommand"
-	CallbackBeforeAddFriendCommand                       = "callbackBeforeAddFriendCommand"
-	CallbackBeforeUpdateUserInfoCommand                  = "callbackBeforeUpdateUserInfoCommand"
-	CallbackBeforeCreateGroupCommand                     = "callbackBeforeCreateGroupCommand"
-	CallbackBeforeMemberJoinGroupCommand                 = "callbackBeforeMemberJoinGroupCommand"
-	CallbackBeforeSetGroupMemberInfoCommand              = "CallbackBeforeSetGroupMemberInfoCommand"
-	CallbackBeforeSetMessageReactionExtensionCommand     = "callbackBeforeSetMessageReactionExtensionCommand"
-	CallbackBeforeDeleteMessageReactionExtensionsCommand = "callbackBeforeDeleteMessageReactionExtensionsCommand"
-	CallbackGetMessageListReactionExtensionsCommand      = "callbackGetMessageListReactionExtensionsCommand"
-	CallbackAddMessageListReactionExtensionsCommand      = "callbackAddMessageListReactionExtensionsCommand"
-
-	// callback actionCode.
-	ActionAllow     = 0
-	ActionForbidden = 1
-	// callback callbackHandleCode.
-	CallbackHandleSuccess = 0
-	CallbackHandleFailed  = 1
-
-	// minioUpload.
-	OtherType = 1
-	VideoType = 2
-	ImageType = 3
-
-	// sendMsgStaus.
-	MsgStatusNotExist = 0
-	MsgIsSending      = 1
-	MsgSendSuccessed  = 2
-	MsgSendFailed     = 3
 )
 
 const (
@@ -263,27 +67,6 @@ const (
 	ReliableNotificationNoMsg = 2
 	ReliableNotificationMsg   = 3
 )
-
-const (
-	AtAllString       = "AtAllTag"
-	AtNormal          = 0
-	AtMe              = 1
-	AtAll             = 2
-	AtAllAtMe         = 3
-	GroupNotification = 4
-)
-
-var ContentType2PushContent = map[int64]string{
-	Picture:   "[PICTURE]",
-	Voice:     "[VOICE]",
-	Video:     "[VIDEO]",
-	File:      "[File]",
-	Text:      "[TEXT]",
-	AtText:    "[@TEXT]",
-	GroupMsg:  "[GROUPMSG]]",
-	Common:    "[NEWMSG]",
-	SignalMsg: "[SIGNALINVITE]",
-}
 
 const (
 	FieldRecvMsgOpt    = 1
@@ -319,49 +102,11 @@ const (
 )
 
 const (
-	OperationID     = "operationID"
-	OpUserID        = "opUserID"
-	ConnID          = "connID"
-	OpUserPlatform  = "platform"
-	Token           = "token"
-	RpcCustomHeader = "customHeader" // rpc中间件自定义ctx参数
-	CheckKey        = "CheckKey"
-	TriggerID       = "triggerID"
-	RemoteAddr      = "remoteAddr"
-	Account         = "account"
-)
-
-const (
-	BecomeFriendByImport = 1 // 管理员导入
-	BecomeFriendByApply  = 2 // 申请添加
-)
-
-const (
-	ApplyNeedVerificationInviteDirectly = 0 // 申请需要同意 邀请直接进
-	AllNeedVerification                 = 1 // 所有人进群需要验证，除了群主管理员邀请进群
-	Directly                            = 2 // 直接进群
-)
-
-const (
 	GroupRPCRecvSize = 30
 	GroupRPCSendSize = 30
 )
 
 const FriendAcceptTip = "You have successfully become friends, so start chatting"
-
-func GroupIsBanChat(status int32) bool {
-	if status != GroupStatusMuted {
-		return false
-	}
-	return true
-}
-
-func GroupIsBanPrivateChat(status int32) bool {
-	if status != GroupBanPrivateChat {
-		return false
-	}
-	return true
-}
 
 const LogFileName = "OpenIM.log"
 
@@ -377,8 +122,6 @@ const (
 )
 
 const OpenIMCommonConfigKey = "OpenIMServerConfig"
-
-const CallbackCommand = "command"
 
 const BatchNum = 100
 
@@ -396,12 +139,4 @@ const (
 const (
 	FirstPageNumber   = 1
 	MaxSyncPullNumber = 500
-)
-
-const (
-	MsgStatusSending     = 1
-	MsgStatusSendSuccess = 2
-	MsgStatusSendFailed  = 3
-	MsgStatusHasDeleted  = 4
-	MsgStatusFiltered    = 5
 )
