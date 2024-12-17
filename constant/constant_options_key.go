@@ -1,6 +1,6 @@
 package constant
 
-type OptionsKey string
+type OptionsKey = string
 
 // OptionsKey.
 const (
