@@ -89,6 +89,7 @@ func (e *codeError) WrapLocal(kv ...any) error {
 	if err != nil {
 		return Wrap(e)
 	}
+	e.msg = message
 	return WrapMsg(e, message)
 }
 
