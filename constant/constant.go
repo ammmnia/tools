@@ -52,11 +52,6 @@ const (
 )
 
 const (
-	IMOrdinaryUser       = 0
-	AppOrdinaryUsers     = 1
-	AppAdmin             = 2
-	AppNotificationAdmin = 3
-
 	GroupOwner         = 100
 	GroupAdmin         = 60
 	GroupOrdinaryUsers = 20
