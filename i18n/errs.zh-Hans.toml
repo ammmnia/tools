@@ -156,3 +156,11 @@ other = "该操作已被禁止，请联系管理员 "
 description = "版本错误，请联系管理员"
 one = "版本错误，请联系管理员 "
 other = "版本错误，请联系管理员 "
+
+[DismissedAlreadyError]
+one = "群组已解散，无法进行操作 "
+other = "群组已解散，无法进行操作 "
+
+[MuteMemberAlreadyError]
+one = "禁言中，无法发送消息 "
+other = "禁言中，无法发送消息 "

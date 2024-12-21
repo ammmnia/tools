@@ -79,4 +79,6 @@ var (
 	ErrIOSBackgroundPushErr = NewCodeError(IOSBackgroundPushErr, "ios background push err")
 
 	ErrFileUploadedExpired = NewCodeError(FileUploadedExpiredError, "FileUploadedExpiredError")
+
+	ErrMuteMemberAlready = NewCodeError(MuteMemberAlreadyError, "MuteMemberAlreadyError")
 )
