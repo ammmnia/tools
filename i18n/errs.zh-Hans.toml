@@ -164,3 +164,8 @@ other = "群组已解散，无法进行操作 "
 [MuteMemberAlreadyError]
 one = "禁言中，无法发送消息 "
 other = "禁言中，无法发送消息 "
+
+[AccountDisabledError]
+description = "该账户已被禁用，请联系管理员"
+one = "该账户已被禁用，请联系管理员 "
+other = "该账户已被禁用，请联系管理员 "

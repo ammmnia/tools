@@ -26,6 +26,7 @@ const (
 	// Account error codes.
 	UserIDNotFoundError    = 1101 // UserID does not exist or is not registered
 	RegisteredAlreadyError = 1102 // user is already registered
+	AccountDisabledError   = 1103
 
 	// Group error codes.
 	GroupIDNotFoundError   = 1201 // GroupID does not exist

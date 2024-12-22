@@ -81,4 +81,6 @@ var (
 	ErrFileUploadedExpired = NewCodeError(FileUploadedExpiredError, "FileUploadedExpiredError")
 
 	ErrMuteMemberAlready = NewCodeError(MuteMemberAlreadyError, "MuteMemberAlreadyError")
+
+	ErrAccountDisabled = NewCodeError(AccountDisabledError, "AccountDisabledError")
 )
