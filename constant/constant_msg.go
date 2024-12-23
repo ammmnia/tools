@@ -25,4 +25,7 @@ const (
 	MsgIsSending      SendMsgStaus = 1
 	MsgSendSuccessed  SendMsgStaus = 2
 	MsgSendFailed     SendMsgStaus = 3
+
+	// delete user roleLevel
+	RoleLevel = "roleLevel"
 )
