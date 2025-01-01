@@ -82,5 +82,6 @@ var (
 
 	ErrMuteMemberAlready = NewCodeError(MuteMemberAlreadyError, "MuteMemberAlreadyError")
 
-	ErrAccountDisabled = NewCodeError(AccountDisabledError, "AccountDisabledError")
+	ErrAccountDisabled    = NewCodeError(AccountDisabledError, "AccountDisabledError")
+	ErrUserAddFriendLimit = NewCodeError(UserAddFriendLimitError, "UserAddFriendLimitError")
 )

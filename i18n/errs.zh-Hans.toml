@@ -169,3 +169,8 @@ other = "禁言中，无法发送消息 "
 description = "该账户已被禁用，请联系管理员"
 one = "该账户已被禁用，请联系管理员 "
 other = "该账户已被禁用，请联系管理员 "
+
+[UserAddFriendLimitError]
+description = "添加好友已达当日上限，请明日再试"
+one = "今日添加好友已达上限，请明日再试 "
+other = "今日添加好友已达上限，请明日再试 "
