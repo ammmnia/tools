@@ -103,8 +103,8 @@ func handleError(ctx context.Context, funcName string, req any, err error) error
 		log.ZError(ctx, "rpc UnknownError", FormatError(err), "funcName", funcName, "rpc UnknownCode:", int64(code))
 		code = errs.ServerInternalError
 	}
-	grpcStatus := status.New(codes.Code(code), err.Error())
-	errInfo := &errinfo.ErrorInfo{Cause: err.Error()}
+	grpcStatus := status.New(codes.Code(code), codeErr.Msg())
+	errInfo := &errinfo.ErrorInfo{Cause: codeErr.Msg()}
 	details, err := grpcStatus.WithDetails(errInfo)
 	if err != nil {
 		log.ZWarn(ctx, "rpc server resp WithDetails error", FormatError(err), "funcName", funcName)
