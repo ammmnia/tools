@@ -16,6 +16,7 @@ package apiresp
 
 import (
 	"encoding/json"
+	"errors"
 	"reflect"
 
 	"github.com/ammmnia/tools/errs"
@@ -81,10 +82,15 @@ func ParseError(err error) *ApiResponse {
 		return ApiSuccess(nil)
 	}
 	unwrap := errs.Unwrap(err)
-	if codeErr, ok := unwrap.(errs.CodeError); ok {
+	var codeErr errs.CodeError
+	if errors.As(unwrap, &codeErr) {
 		resp := ApiResponse{ErrCode: codeErr.Code(), ErrMsg: codeErr.Msg(), ErrDlt: codeErr.Detail()}
 		if resp.ErrDlt == "" {
-			resp.ErrDlt = err.Error()
+			if resp.ErrMsg != "" {
+				resp.ErrDlt = resp.ErrMsg
+			} else {
+				resp.ErrDlt = err.Error()
+			}
 		}
 		return &resp
 	}
