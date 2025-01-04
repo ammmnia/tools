@@ -171,6 +171,6 @@ one = "该账户已被禁用，请联系管理员 "
 other = "该账户已被禁用，请联系管理员 "
 
 [UserAddFriendLimitError]
-description = "添加好友已达当日上限，请明日再试"
-one = "今日添加好友已达上限，请明日再试 "
-other = "今日添加好友已达上限，请明日再试 "
+description = "超过单日添加好友上限"
+one = "超过单日添加好友上限 "
+other = "超过单日添加好友上限 "
