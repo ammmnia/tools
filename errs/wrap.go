@@ -26,3 +26,10 @@ func WrapMsg(err error, msg string, kv ...any) error {
 	withMessage := errors.WithMessage(err, toString(msg, kv))
 	return errors.WithStack(withMessage)
 }
+
+func WrapMessage(err error, msg string, kv ...any) error {
+	if err == nil {
+		return nil
+	}
+	return errors.New(msg)
+}

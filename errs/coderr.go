@@ -90,7 +90,7 @@ func (e *codeError) WrapLocal(kv ...any) error {
 		return Wrap(e)
 	}
 	e.msg = message
-	return WrapMsg(e, message)
+	return WrapMessage(e, message)
 }
 
 func (e *codeError) Is(err error) bool {
