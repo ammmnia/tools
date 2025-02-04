@@ -83,6 +83,8 @@ const (
 	RegisterLimit        = 10012 // Registration limit exceeded
 	LoginLimit           = 10013 // Login limit exceeded
 	InvitationError      = 10014 // Error in invitation
+	NewPasswordErr       = 10015
+	OldPasswordErr       = 10016
 
 	AccountNotFound          = 20002
 	PhoneAlreadyRegister     = 20003

@@ -30,6 +30,8 @@ var (
 	ErrVerionError      = NewCodeError(VersionError, "VersionError")
 
 	ErrPassword                 = NewCodeError(PasswordErr, "PasswordErr")
+	ErrOldPassword              = NewCodeError(OldPasswordErr, "OldPasswordErr")
+	ErrNewPassword              = NewCodeError(NewPasswordErr, "NewPasswordErr")
 	ErrAccountNotFound          = NewCodeError(AccountNotFound, "AccountNotFound")
 	ErrPhoneAlreadyRegister     = NewCodeError(PhoneAlreadyRegister, "PhoneAlreadyRegister")
 	ErrAccountAlreadyRegister   = NewCodeError(AccountAlreadyRegister, "AccountAlreadyRegister")
