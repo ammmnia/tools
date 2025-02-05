@@ -109,14 +109,14 @@ one = "密码输入错误，请检查后重试  "
 other = "密码输入错误，请检查后重试 "
 
 [OldPasswordErr]
-description = "旧密码输入错误，请检查后重试"
-one = "旧密码输入错误，请检查后重试  "
-other = "旧密码输入错误，请检查后重试 "
+description = "原密码输入错误，请检查后重试"
+one = "原密码输入错误，请检查后重试  "
+other = "原密码输入错误，请检查后重试 "
 
 [NewPasswordErr]
-description = "新密码不能和旧密码一样，请检查后重试"
-one = "新密码不能和旧密码一样，请检查后重试  "
-other = "新密码不能和旧密码一样，请检查后重试 "
+description = "新密码不能和原密码一样，请检查后重试"
+one = "新密码不能和原密码一样，请检查后重试  "
+other = "新密码不能和原密码一样，请检查后重试 "
 
 [AccountNotFound]
 description = "帐户不存在，请确认输入信息"
